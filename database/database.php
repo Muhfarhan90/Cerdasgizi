@@ -1,0 +1,7 @@
+<?php
+    $conn = mysqli_connect("localhost","root","","db_cerdasgizi");
+
+    if (!$conn) {
+        die("Database Error : ". mysqli_connect_error());
+    }
+?>
