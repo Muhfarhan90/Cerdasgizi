@@ -1,6 +1,14 @@
 <?php
 include("../../logout.php");
 include('../../database/database.php');
+// pasien
+$id_user = $_SESSION['id_user'];
+$query_pasien = "SELECT * FROM patient WHERE id_user = $id_user";
+$result_pasien = mysqli_query($conn, $query_pasien);
+$row_pasien = mysqli_fetch_assoc($result_pasien);
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +80,105 @@ include('../../database/database.php');
               <h1 class="mb-2 text-titlecase mb-4">Konsultasi</h1>
             </div>
           </div>
-      
+
+          <div class="row">
+            <div class="col-xl-12 grid-margin stretch-card flex-column">
+              <div class="card">
+                <?php
+                // Mendapatkan nilai id_patient terakhir
+                $query_last_id_consultation = "SELECT MAX(id_consultation) AS last_id_consultation FROM consultation";
+                $result_last_id_consultation = mysqli_query($conn, $query_last_id_consultation);
+                $row_last_id_consultation = mysqli_fetch_assoc($result_last_id_consultation);
+                $last_id_consultation = $row_last_id_consultation['last_id_consultation'];
+
+                // Mengatur id_user dan id_nutritionist untuk data berikutnya
+                $id_consultation = $last_id_consultation + 1;
+                $no = 1;
+                if (isset($_GET['ajukan'])) {
+                  $id_pasien = $row_pasien['ID_PATIENT'];
+                  // ahligizi
+                  $id_ahligizi = $_GET['id_ahligizi'];
+                  // tanggal
+                  $tanggal = date('Y-m-d H:i:s');
+                  $status = "sedang menunggu";
+
+                  $query = "INSERT INTO consultation (id_consultation, id_patient, id_nutritionist, date_consultation, status_consultation) VALUES ($id_consultation, $id_pasien, $id_ahligizi, '$tanggal', '$status')";
+                  $result = mysqli_query($conn, $query);
+
+
+
+                  if (mysqli_affected_rows($conn) > 0) {
+                    echo "<script>
+                      alert('data konsultasi berhasil ditambah');
+                    </script>";
+                  }
+                }
+                ?>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Nama Pasien</th>
+                      <th>Nama Ahligizi</th>
+                      <th>Tanggal Konsultasi</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <?php
+                  $id_pasien = $row_pasien['ID_PATIENT'];
+                  $status = "sedang menunggu";
+                  // select 3 tabel
+                  $query2 = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION FROM consultation
+                  INNER JOIN patient ON consultation.id_patient = patient.id_patient
+                  INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
+                  WHERE consultation.id_patient = $id_pasien AND consultation.STATUS_CONSULTATION = '$status'";
+                  $result2 = mysqli_query($conn, $query2);
+                  if (mysqli_num_rows($result2) > 0) {
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                  ?>
+                      <tbody>
+                        <tr>
+                          <td><?=$no?></td>
+                          <td><?= $row2['fullname_patient'] ?></td>
+                          <td><?= $row2['fullname_nutritionist'] ?></td>
+                          <td><?= $row2['DATE_CONSULTATION'] ?></td>
+                          <td><label class="badge badge-warning"><?= $row2['STATUS_CONSULTATION'] ?></label></td>
+                        </tr>
+                      </tbody>
+                  <?php
+                      $no++;
+                    }
+                  }
+                  ?>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- chat koneultasi -->
+          <!-- <div class="row">
+            <div class="col-xl-12 grid-margin stretch-card flex-column">
+
+              <div class="card bg-light mb-3 d-flex justify-content-center" style="max-width: 540px;">
+                <div class="row g-0 d-flex align-items-center">
+                  <div class="col-md-1 ml-4">
+                    <img src="../../images/icons8-doctor-32.png" class="rounded-circle" style="width:75px; height:75px" alt="...">
+                  </div>
+                  <div class="col-md-9">
+                    <div class="card-body">
+                      <h5 class="card-title">Anto</h5>
+                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="card-body">
+                     <button class="btn btn-primary">Chat</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
 
 
 

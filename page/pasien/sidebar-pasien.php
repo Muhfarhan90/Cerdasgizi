@@ -22,25 +22,26 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="konsultasi.php">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="typcn typcn-device-desktop menu-icon"></i>
                 <span class="menu-title">Konsultasi</span>
-                <!-- <div class="badge badge-danger">new</div> -->
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                <i class="typcn typcn-document-text menu-icon"></i>
-                <span class="menu-title">Kalkulator Gizi</span>
                 <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="kalkulator-imt.php">Indeks Masa Tubuh</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="kalkulator-ideal.php">Berat Badan Ideal</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="konsultasi.php">Chat</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="janji-offline.php">Janji Offline</a></li>
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="kalkulator-imt.php">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title">Kalkulator IMT</span>
+                <!-- <div class="badge badge-danger">new</div> -->
+            </a>
+        </li>
+       
         <li class="nav-item">
             <a class="nav-link" href="artikel.php">
                 <i class="mdi mdi-file-document menu-icon"></i>
