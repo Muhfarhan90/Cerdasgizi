@@ -120,7 +120,7 @@ if (isset($_POST['komen'])) {
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card " style="width: 18rem;">
                                 <h3 class="mx-auto py-4"><?= $row['TITLE'] ?></h3>
-                                <img src="../../images/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top w-25 mx-auto" alt="gambar-artikel" name="gambar">
+                                <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top w-25 mx-auto" alt="gambar-artikel" name="gambar">
                                 <div class="card-body ">
                                     <p class="card-text">Kategori : <?= $row2['NAME_CATEGORY'] ?></p>
                                     <br>
