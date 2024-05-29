@@ -148,6 +148,8 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                   <?php
                       $no++;
                     }
+                  } else {
+                    echo "Anda belum mengajukan konsultasi apapun, silahkan pilih ahligizi pada menu ahligizi untuk mengajukan konsultasi gizi anda";
                   }
                   ?>
                 </table> -->

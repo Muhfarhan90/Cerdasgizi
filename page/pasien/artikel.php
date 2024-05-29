@@ -233,7 +233,7 @@ include('../../database/database.php');
             ?>
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card" style="width: 18rem;">
-                  <img src="../../images/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
+                  <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
                   <div class="card-body">
                     <h5 class="card-title"><?= $row['TITLE'] ?></h5>
                     <p class="card-text"><?= $excerpt ?></p>

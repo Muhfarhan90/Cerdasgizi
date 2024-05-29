@@ -21,13 +21,18 @@ if (isset($_POST["register"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $email = $_POST["email"];
+    $nama = $_POST["nama_lengkap"];
+    $tanggal = $_POST["tgl_lahir"];
+    $gender = $_POST["gender"];
+    $tinggi = $_POST["tinggi"];
+    $berat = $_POST["berat"];
 
     try {
         // Query untuk insert data user
-        $query = "INSERT INTO user (id_user, id_role, username_user, password_user) VALUES ($id_user, 2, '$username', '$password')";
+        $query = "INSERT INTO user (id_user, id_role, username_user, password_user) VALUES ($id_user, 3, '$username', '$password')";
 
         // Query untuk insert data pasien
-        $query2 = "INSERT INTO patient (id_patient, id_user, email_patient) VALUES ($id_patient, $id_user,'$email')";
+        $query2 = "INSERT INTO patient (id_patient, id_user, email_patient, fullname_patient, date_of_birth, gender, height, `weight`) VALUES ($id_patient, $id_user,'$email', '$nama', '$tanggal', '$gender', '$tinggi', '$berat')";
 
         // Eksekusi query
         $result = mysqli_query($conn, $query);
@@ -96,7 +101,10 @@ if (isset($_POST["register"])) {
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" required>
                                 </div>
-                                <!-- <div class="form-group">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-lg " id="username" placeholder="Nama Lengkap" name="nama_lengkap" required>
+                                </div>
+                                <div class="form-group">
                                     <input type="date" class="form-control form-control-lg" id="tgl_lahir" placeholder="Tanggal lahir" name="tgl_lahir" required>
                                 </div>
                                 <div class="form-group">
@@ -104,13 +112,13 @@ if (isset($_POST["register"])) {
                                         <div class="form-group">
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="">
+                                                    <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="L">
                                                     Laki-laki
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2" checked>
+                                                    <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="P" checked>
                                                     Perempuan
                                                 </label>
                                             </div>
@@ -122,7 +130,7 @@ if (isset($_POST["register"])) {
                                 </div>
                                 <div class="form-group">
                                     <input type="number" class="form-control form-control-lg" id="berat" placeholder="Berat badan" name="berat" required>
-                                </div> -->
+                                </div>
                                 <div class="form-group">
                                     <div class="mb-4 mt-4">
                                         <div class="form-check">
