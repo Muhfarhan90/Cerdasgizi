@@ -103,14 +103,43 @@ $tanggal = date('Y-m-d H:i:s');
                                         <input type="hidden" name="nama_pasien" value="<?= htmlspecialchars($nama_pasien) ?>">
                                         <input type="hidden" name="id_ahligizi" value="<?= htmlspecialchars($id) ?>">
                                         <input type="hidden" name="nama_ahligizi" value="<?= htmlspecialchars($row['FULLNAME_NUTRITIONIST']) ?>">
-                                        <input type="hidden" name="tanggal" value="<?= $tanggal?>">
+                                        <input type="hidden" name="tanggal" value="<?= $tanggal ?>">
                                         <button type="submit" class="btn btn-info" name="ajukan" onclick="return confirm('Apakah Anda yakin ingin mengajukan konsultasi?');">Ajukan Konsultasi</button>
                                     </form>
-                                  
+
                                 </div>
 
                             </div>
                         </div>
+                    </div>
+                    <!-- artikel yang dibuat -->
+                    <div class="row">
+                        <div class="col-md-12 grid-margin stretch-card">
+                    <h2>Top Artikel dari <?= $row['FULLNAME_NUTRITIONIST']?></h2>    
+                    </div>
+                    </div>
+                    <div class="row">
+                        <?php
+                        $query = "SELECT * FROM article WHERE id_nutritionist = $id";
+                        $result = mysqli_query($conn, $query);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $content = $row['CONTENT_ARTICLE'];
+                            $excerpt = substr($content, 0, 100) . "...";
+                        ?>
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= $row['TITLE'] ?></h5>
+                                        <p class="card-text"><?= $excerpt ?></p>
+                                        <a href="detail-artikel.php?id=<?= $row['ID_ARTICLE'] ?>" class="btn btn-primary">Lihat Selengkapnya</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
                     </div>
 
 

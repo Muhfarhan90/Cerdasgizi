@@ -29,20 +29,18 @@
               <!-- <div class="badge badge-danger">new</div> -->
             </a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="kelola-konsultasi.php">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">Konsultasi</span>
-              <!-- <div class="badge badge-danger">new</div> -->
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="kelola-artikel.php">
               <i class="mdi mdi-file-document menu-icon"></i>
               <span class="menu-title">Artikel Kesehatan</span>
-              <!-- <div class="badge badge-danger">new</div> -->
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="index.html" onclick="return confirm('Apakah Anda yakin ingin logout?');" >
               <form action="../../logout.php" method="POST">
