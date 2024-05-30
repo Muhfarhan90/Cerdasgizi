@@ -1,8 +1,7 @@
 <?php
 include("../../logout.php");
 include('../../database/database.php');
-$query = "SELECT * FROM nutritionist";
-$result = mysqli_query($conn, $query);
+
 
 ?>
 
@@ -31,6 +30,54 @@ $result = mysqli_query($conn, $query);
         <?php
         include('navbar-pasien.php');
         ?>
+
+        <!-- fitur search -->
+        <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
+            <div class="navbar-links-wrapper d-flex align-items-stretch">
+                <!-- <div class="nav-link">
+                    <a href="javascript:;"><i class="typcn typcn-calendar-outline"></i></a>
+                </div>
+                <div class="nav-link">
+                    <a href="javascript:;"><i class="typcn typcn-mail"></i></a>
+                </div>
+                <div class="nav-link">
+                    <a href="javascript:;"><i class="typcn typcn-folder"></i></a>
+                </div>
+                <div class="nav-link">
+                    <a href="javascript:;"><i class="typcn typcn-document-text"></i></a>
+                </div> -->
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <!-- <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item ml-0">
+                        <h4 class="mb-0">Dashboard</h4>
+                    </li>
+                    <li class="nav-item">
+                        <div class="d-flex align-items-baseline">
+                            <p class="mb-0">Home</p>
+                            <i class="typcn typcn-chevron-right"></i>
+                            <p class="mb-0">Main Dahboard</p>
+                        </div>
+                    </li>
+                </ul> -->
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-search d-none d-md-block mr-0">
+                        <form action="daftar-ahligizi.php" method="POST">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci" Required>
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="input-group-text" id="search" name="cari">
+                                        <i class="typcn typcn-zoom"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
         <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- partial:partials/_settings-panel.html -->
@@ -56,7 +103,7 @@ $result = mysqli_query($conn, $query);
                     </div>
                 </div>
             </div>
-            
+
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             <?php
@@ -75,28 +122,39 @@ $result = mysqli_query($conn, $query);
                     <div class="row">
                         <div class="col-xl-6 grid-margin stretch-card flex-column">
                             <?php
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
+                            if (isset($_POST['cari'])) {
+                                $katakunci = $_POST['katakunci'];
+                                $query = "SELECT * FROM nutritionist WHERE fullname_nutritionist LIKE '%$katakunci%'";
+                                $result = mysqli_query($conn, $query);
+
+                            } else {
+                                $query = "SELECT * FROM nutritionist";
+                                $result = mysqli_query($conn, $query);
+                            }
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
                             ?>
-                                    <div class="card border border-primary" style="width: 18rem;">
+                                        <div class="card border border-primary" style="width: 18rem;">
 
 
-                                        <img src="../../images/icons8-doctor-32.png" class="card-img-top rounded-circle w-25" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><?= $row['FULLNAME_NUTRITIONIST'] ?></h5>
-                                            <p class="card-text">Berpengalaman <?= $row['YEARS_OF_EXPERIENCE'] ?> Tahun</p>
-                                            <p class="card-text"><?= $row['EDUCATION'] ?></p>
-                                            <a href="detail-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>" class="btn btn-primary">Lihat Ahligizi</a>
+                                            <img src="../../images/icons8-doctor-32.png" class="card-img-top rounded-circle w-25" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title"><?= $row['FULLNAME_NUTRITIONIST'] ?></h5>
+                                                <p class="card-text">Berpengalaman <?= $row['YEARS_OF_EXPERIENCE'] ?> Tahun</p>
+                                                <p class="card-text"><?= $row['EDUCATION'] ?></p>
+                                                <a href="detail-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>" class="btn btn-primary">Lihat Ahligizi</a>
+                                            </div>
+
+
                                         </div>
-
-
-                                    </div>
                             <?php
 
+                                    }
+                                } else {
+                                    echo "Tidak ada data yang ditemukan";
                                 }
-                            } else {
-                                echo "Tidak ada data yang ditemukan";
-                            }
+                           
+
                             ?>
 
                         </div>
