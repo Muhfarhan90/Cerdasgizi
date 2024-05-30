@@ -276,7 +276,7 @@ $row = mysqli_fetch_assoc($result);
                           <td><?= $row['PUBLICATION_DATE'] ?></td>
                           <td>
                             <div class="d-flex align-items-center">
-                              <a href="edit-article.php?id=<?= $row['ID_ARTICLE'] ?>"><button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                              <a href="edit-artikel.php?id=<?= $row['ID_ARTICLE'] ?>"><button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
                                   Edit
                                   <i class="typcn typcn-edit btn-icon-append"></i>
                                 </button></a>
