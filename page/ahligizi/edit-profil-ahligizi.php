@@ -15,7 +15,7 @@ if (isset($_POST['simpan'])) {
     $sertifikasi = $_POST['sertifikasi'];
     // $profil = $_POST['profil'];
 
-    $query2 = "UPDATE `nutritionist` SET `email_nutritionist` = '$email', `fullname_nutritionist` = '$nama', `years_of_experience` = '$tahun', `education` = '$pendidikan', `certification` = '$sertifikasi' = $profil WHERE `id_nutritionist` = $id";
+    $query2 = "UPDATE `nutritionist` SET `email_nutritionist` = '$email', `fullname_nutritionist` = '$nama', `years_of_experience` = '$tahun', `education` = '$pendidikan', `certification` = '$sertifikasi' WHERE `id_nutritionist` = $id";
     $result2 = mysqli_query($conn, $query2);
     $row = mysqli_affected_rows($conn);
     if ($row > 0) {

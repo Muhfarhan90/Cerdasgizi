@@ -168,7 +168,7 @@ if (isset($_POST['komen'])) {
                                                 <ul class="navbar-nav mr-lg-2">
                                                     <li class="nav-item nav-profile dropdown">
 
-                                                        <img src="../../images/faces/face5.jpg" alt="profile" class="rounded-circle" style="width: 50px; height: 50px;" />
+                                                        <img src="../../images/icons8-user-32.png" alt="profile" class="rounded-circle" style="width: 50px; height: 50px;" />
                                                         <span class="nav-profile-name mx-2"><?= $nama_pasien ?></span>
                                                         <p class="card-text my-4"><?= $row['COMMENT_TEXT'] ?></p>
                                                         <p class="card-text my-4"><?= $row['COMMENT_DATE'] ?></p>

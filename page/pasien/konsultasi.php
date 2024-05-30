@@ -200,7 +200,7 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                             if ($row2['STATUS_CONSULTATION'] == "dalam proses") {
                               echo '<a href="chat.php?id_consultation=' . $row2['id_consultation'] . '" class="btn btn-info">Buka Chat</a>';
                             } elseif ($row2['STATUS_CONSULTATION'] == "selesai") {
-                              echo '<a href="history.php?id_consultation=' . $row2['id_consultation'] . '" class="btn btn-secondary">Lihat Riwayat</a>';
+                              echo '<a href="histori-chat.php?id_consultation=' . $row2['id_consultation'] . '" class="btn btn-secondary">Lihat Riwayat</a>';
                             } else {
                               echo '-';
                             }

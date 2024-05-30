@@ -4,9 +4,9 @@ include('../../database/database.php');
 
 // Mendapatkan data pasien
 $id_user = $_SESSION['id_user'];
-// $query_pasien = "SELECT * FROM nutritio WHERE id_user = $id_user";
-// $result_pasien = mysqli_query($conn, $query_pasien);
-// // $row_pasien = mysqli_fetch_assoc($result_pasien);
+$query_pasien = "SELECT * FROM patient WHERE id_user = $id_user";
+$result_pasien = mysqli_query($conn, $query_pasien);
+// $row_pasien = mysqli_fetch_assoc($result_pasien);
 
 // Mendapatkan ID konsultasi dari parameter URL
 $id_konsultasi = $_GET['id_consultation'];
@@ -62,9 +62,9 @@ $result_chat = mysqli_query($conn, $query_chat);
 <body>
     <div class="container-scroller">
         <!-- Navbar dan sidebar -->
-        <?php include('navbar-ahligizi.php'); ?>
+        <?php include('navbar-pasien.php'); ?>
         <div class="container-fluid page-body-wrapper">
-            <?php include('sidebar-ahligizi.php'); ?>
+            <?php include('sidebar-pasien.php'); ?>
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
@@ -77,14 +77,14 @@ $result_chat = mysqli_query($conn, $query_chat);
                             <ul class="d-flex flex-column list-unstyled chat-container">
                                 <?php if (mysqli_num_rows($result_chat) > 0): ?>
                                     <?php while ($row_chat = mysqli_fetch_assoc($result_chat)) : ?>
-                                        <?php if ($row_chat['id_role'] == 2) : ?>
+                                        <?php if ($row_chat['id_role'] == 3) : ?>
                                             <!-- Pesan dari pasien -->
                                             <li class="d-flex justify-content-end mb-4">
                                                 <div class="card w-100 message-right">
                                                     <div class="card-header d-flex justify-content-between p-3">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="../../images/icons8-doctor-32.png" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
-                                                            <p class="fw-bold mb-0"><?= $row_chat['nutritionist_name'] ?></p>
+                                                            <img src="../../images/icons8-user-32.png" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                                                            <p class="fw-bold mb-0"><?= $row_chat['patient_name'] ?></p>
                                                         </div>
                                                         <div>
                                                             <p class="text-muted small mb-0"><i class="far fa-clock"></i> <?= $row_chat['DATE_TIME_CHAT'] ?></p>
@@ -95,14 +95,14 @@ $result_chat = mysqli_query($conn, $query_chat);
                                                     </div>
                                                 </div>
                                             </li>
-                                        <?php elseif ($row_chat['id_role'] == 3): ?>
+                                        <?php elseif ($row_chat['id_role'] == 2): ?>
                                             <!-- Pesan dari ahli gizi -->
                                             <li class="d-flex justify-content-start mb-4">
                                                 <div class="card message-left">
                                                     <div class="card-header d-flex justify-content-between p-3">
                                                         <div class="d-flex align-items-center">
-                                                            <img src="../../images/icons8-user-32.png" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
-                                                            <p class="fw-bold mb-0"><?= $row_chat['patient_name'] ?></p>
+                                                            <img src="../../images/icons8-doctor-32.png" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
+                                                            <p class="fw-bold mb-0"><?= $row_chat['nutritionist_name'] ?></p>
                                                         </div>
                                                         <div>
                                                             <p class="text-muted small mb-0"><i class="far fa-clock"></i> <?= $row_chat['DATE_TIME_CHAT'] ?></p>
@@ -119,13 +119,13 @@ $result_chat = mysqli_query($conn, $query_chat);
                                     <li class="text-center">Tidak ada pesan.</li>
                                 <?php endif; ?>
                             </ul>
-                            <form action="" method="POST" class="chat-input fixed-bottom col-xl-10 " style="margin-left: 16rem;">
+                            <!-- <form action="" method="POST" class="chat-input fixed-bottom col-xl-10 " style="margin-left: 16rem;">
                                 <div class="form-outline">
                                     <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat"></textarea>
                                 </div>
                                 <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
                                 <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-rounded float-end mt-2" name="kirim">Send</button>
-                            </form>
+                            </form> -->
                         </div>
                     </div>
                 </div>

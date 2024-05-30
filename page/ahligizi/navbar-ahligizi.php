@@ -12,7 +12,7 @@
         <ul class="navbar-nav mr-lg-2">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="../../images/faces/face5.jpg" alt="profile" />
+                    <img src="../../images/icons8-doctor-32.png" alt="profile" />
                     <span class="nav-profile-name"><?= $_SESSION['username_user'] ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">

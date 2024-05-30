@@ -106,9 +106,7 @@ $tanggal = date('Y-m-d H:i:s');
                                         <input type="hidden" name="tanggal" value="<?= $tanggal?>">
                                         <button type="submit" class="btn btn-info" name="ajukan" onclick="return confirm('Apakah Anda yakin ingin mengajukan konsultasi?');">Ajukan Konsultasi</button>
                                     </form>
-                                    <form action="">
-                                        <button type="submit" class="btn btn-primary" name="janji" onclick="return confirm('Apakah Anda yakin ingin mengajukan konsultasi?');">Buat Janji Offline</button>
-                                    </form>
+                                  
                                 </div>
 
                             </div>
