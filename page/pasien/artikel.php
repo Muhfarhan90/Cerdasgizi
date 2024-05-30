@@ -121,6 +121,14 @@ include('../../database/database.php');
 
           <div class="row">
             <h1>Artikel Kesehatan</h1>
+            <!-- <div class="div ml-4"> 
+              <form action="" method="POST">
+                <button class="btn btn-info" type="submit" name="bayi">Gizi Bayi</button>
+                <button class="btn btn-info" type="submit" name="anak">Gizi Anak</button>
+                <button class="btn btn-info" type="submit" name="remaja">Gizi Remaja</button>
+                <button class="btn btn-info" type="submit" name="dewasa">Gizi Dewasa</button>
+              </form>
+            </div> -->
 
           </div>
           <div class="row">
