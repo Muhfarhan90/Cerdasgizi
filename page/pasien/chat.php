@@ -64,6 +64,29 @@ $result_chat = mysqli_query($conn, $query_chat);
         <!-- Navbar dan sidebar -->
         <?php include('navbar-pasien.php'); ?>
         <div class="container-fluid page-body-wrapper">
+            <div class="theme-setting-wrapper">
+                <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+                <div id="theme-settings" class="settings-panel">
+                    <i class="settings-close typcn typcn-times"></i>
+                    <p class="settings-heading">SIDEBAR SKINS</p>
+                    <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+                        <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
+                    </div>
+                    <div class="sidebar-bg-options" id="sidebar-dark-theme">
+                        <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+                    </div>
+                    <p class="settings-heading mt-2">HEADER SKINS</p>
+                    <div class="color-tiles mx-0 px-4">
+                        <div class="tiles success"></div>
+                        <div class="tiles warning"></div>
+                        <div class="tiles danger"></div>
+                        <div class="tiles info"></div>
+                        <div class="tiles dark"></div>
+                        <div class="tiles default"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar pasien -->
             <?php include('sidebar-pasien.php'); ?>
             <div class="main-panel">
                 <div class="content-wrapper">
@@ -75,7 +98,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                     <div class="row">
                         <div class="col-md-6 col-lg-7 col-xl-12" style="margin-bottom: 4rem;">
                             <ul class="d-flex flex-column list-unstyled chat-container">
-                                <?php if (mysqli_num_rows($result_chat) > 0): ?>
+                                <?php if (mysqli_num_rows($result_chat) > 0) : ?>
                                     <?php while ($row_chat = mysqli_fetch_assoc($result_chat)) : ?>
                                         <?php if ($row_chat['id_role'] == 3) : ?>
                                             <!-- Pesan dari pasien -->
@@ -95,7 +118,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                                     </div>
                                                 </div>
                                             </li>
-                                        <?php elseif ($row_chat['id_role'] == 2): ?>
+                                        <?php elseif ($row_chat['id_role'] == 2) : ?>
                                             <!-- Pesan dari ahli gizi -->
                                             <li class="d-flex justify-content-start mb-4">
                                                 <div class="card message-left">
@@ -115,7 +138,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                             </li>
                                         <?php endif; ?>
                                     <?php endwhile; ?>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <li class="text-center">Tidak ada pesan.</li>
                                 <?php endif; ?>
                             </ul>

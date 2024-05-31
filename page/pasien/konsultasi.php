@@ -168,11 +168,11 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                   $id_pasien = $row_pasien['ID_PATIENT'];
                   $statuses = ["sedang menunggu", "dalam proses", "selesai"];
                   $query2 = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION 
-             FROM consultation
-             INNER JOIN patient ON consultation.id_patient = patient.id_patient
-             INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
-             WHERE consultation.id_patient = $id_pasien 
-             AND consultation.STATUS_CONSULTATION IN ('" . implode("','", $statuses) . "')";
+                  FROM consultation
+                  INNER JOIN patient ON consultation.id_patient = patient.id_patient
+                  INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
+                  WHERE consultation.id_patient = $id_pasien 
+                  AND consultation.STATUS_CONSULTATION IN ('" . implode("','", $statuses) . "')";
                   $result2 = mysqli_query($conn, $query2);
                   if (mysqli_num_rows($result2) > 0) {
                     $no = 1;
