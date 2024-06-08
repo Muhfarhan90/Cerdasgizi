@@ -1,7 +1,82 @@
 <?php
 include("../../logout.php");
 include('../../database/database.php');
+
+// grafik gender pasien
+$sql = "
+SELECT 
+    SUM(CASE WHEN gender = 'L' THEN 1 ELSE 0 END) AS jumlah_laki_laki,
+    SUM(CASE WHEN gender = 'P' THEN 1 ELSE 0 END) AS jumlah_perempuan
+FROM patient;
+";
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0)
+  while ($row = $result->fetch_assoc()) {
+    $jumlah_laki = $row['jumlah_laki_laki'];
+    $jumlah_perempuan = $row['jumlah_perempuan'];
+  }
+
+
+// grafik jumlah konsul ahligizi
+$query_ahligizi = "
+SELECT 
+    nutritionist.fullname_nutritionist,
+    COUNT(*) AS jumlah_konsul
+FROM 
+    consultation
+JOIN 
+    nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
+GROUP BY 
+    nutritionist.fullname_nutritionist
+ORDER BY 
+    jumlah_konsul DESC
+LIMIT 5;
+
+
+";
+$result_ahligizi = $conn->query($query_ahligizi);
+
+$ahli_gizi = [];
+$jumlah_konsul = [];
+
+if ($result_ahligizi->num_rows > 0) {
+  // Fetch data
+  while ($row = $result_ahligizi->fetch_assoc()) {
+    $ahli_gizi[] = $row["fullname_nutritionist"];
+    $jumlah_konsul[] = $row["jumlah_konsul"];
+  }
+}
+
+// grafik jumlah konsultasi pasien
+$query_pasien = "SELECT 
+    patient.fullname_patient,
+    COUNT(*) AS total_konsultasi
+FROM 
+    consultation
+JOIN 
+    patient ON consultation.id_patient = patient.id_patient
+GROUP BY 
+    patient.fullname_patient
+ORDER BY 
+    total_konsultasi DESC
+LIMIT 5;
+";
+$result_pasien = $conn->query($query_pasien);
+
+$pasien = [];
+$total_konsul = [];
+
+if ($result_pasien->num_rows > 0) {
+  // Fetch data
+  while ($row = $result_pasien->fetch_assoc()) {
+    $pasien[] = $row["fullname_patient"];
+    $total_konsul[] = $row["total_konsultasi"];
+  }
+}
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -210,29 +285,64 @@ include('../../database/database.php');
               </div>
             </div>
           </div>
+          <!-- GRAFIK -->
           <div class="row">
-            <div class="card">
-              <!-- <div class="card-title">
-                <h4>Gender Pasien</h4>
-              </div> -->
-              <div class="card-body">
-                <div>
-                  <canvas id="myChart"></canvas>
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart"></canvas>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart2"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart3"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
 
+          </div>
 
+          <!-- GRAFIK ROW 2 -->
+          <div class="row">
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart4"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
 
-          <!-- partial -->
         </div>
-        <!-- main-panel ends -->
+
+
+        <!-- partial -->
       </div>
-      <!-- page-body-wrapper ends -->
+      <!-- main-panel ends -->
     </div>
-    <!-- container-scroller -->
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
   </div>
   <!-- base:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
@@ -252,31 +362,166 @@ include('../../database/database.php');
   <!-- End custom js for this page-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
+    //  grafik gender pasien
+    const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-      type: 'bar',
+      type: 'pie',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [
+          'Jumlah Laki',
+          'Jumlah Perempuan',
+        ],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
+          label: 'Total',
+          data: [
+            <?= $jumlah_laki ?>,
+            <?= $jumlah_perempuan ?>
+          ],
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+          ],
+          hoverOffset: 4,
+          borderWidth: 1,
+          borderColor: 'black'
+
+        }],
+
       },
       options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Data Gender Pasien'
+          },
+        },
         scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+
+
+        },
+
       }
     });
+  </script>
+  <script>
+    // grafik 2
+    var ahliGiziData = <?= json_encode($ahli_gizi) ?>;
+    var jumlahKonsulData = <?= json_encode($jumlah_konsul) ?>;
+    // Calculate the maximum value in the dataset
+    var maxKonsul = Math.max.apply(Math, jumlahKonsulData);
 
-    // const config = {
-    //   type: 'doughnut',
-    //   data: data,
-    // };
+    // Round up the maximum value to the nearest integer
+    var roundedMaxKonsul = Math.ceil(maxKonsul);
+    const ctx2 = document.getElementById('myChart2');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ahliGiziData,
+        datasets: [{
+          label: 'Total',
+          data: jumlahKonsulData,
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderWidth: 1,
+
+        }],
+
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Jumlah Konsultasi Ahligizi'
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+            min: 0,
+            max: roundedMaxKonsul
+          }
+
+        }
+
+      }
+    });
+  </script>
+
+  <!-- grafik konsultasi pasien  -->
+  <script>
+    var pasienData = <?= json_encode($pasien) ?>;
+    var totalKonsultasi = <?= json_encode($total_konsul) ?>;
+    // Calculate the maximum value in the dataset
+    var maxKonsul = Math.max.apply(Math, totalKonsultasi);
+
+    // Round up the maximum value to the nearest integer
+    var roundedMaxKonsul = Math.ceil(maxKonsul);
+    const ctx3 = document.getElementById('myChart3');
+    new Chart(ctx3, {
+      type: 'bar',
+      data: {
+        labels: pasienData,
+        datasets: [{
+          label: 'Total',
+          data: totalKonsultasi,
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderWidth: 1,
+
+        }],
+
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Jumlah Konsultasi Pasien'
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+            min: 0,
+            max: roundedMaxKonsul
+          }
+
+        }
+
+      }
+    });
   </script>
 </body>
 
