@@ -25,8 +25,8 @@ include("../../database/database.php");
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <?php
-include('navbar-admin.php');
-   ?>
+    include('navbar-admin.php');
+    ?>
     <!-- partial -->
 
     <div class="container-fluid page-body-wrapper">
@@ -53,11 +53,11 @@ include('navbar-admin.php');
           </div>
         </div>
       </div>
-      
+
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <?php
-include('sidebar-admin.php');
+      include('sidebar-admin.php');
       ?>
       <!-- partial -->
       <div class="main-panel">
@@ -566,5 +566,3 @@ include('sidebar-admin.php');
 </body>
 
 </html>
-
-           

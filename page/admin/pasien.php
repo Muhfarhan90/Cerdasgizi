@@ -30,49 +30,37 @@ include("../../database/database.php");
     <!-- partial -->
     <!-- Fitur Search -->
     <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
-      <div class="navbar-links-wrapper d-flex align-items-stretch">
-        <!-- <div class="nav-link">
-                    <a href="javascript:;"><i class="typcn typcn-calendar-outline"></i></a>
-                </div>
-                <div class="nav-link">
-                    <a href="javascript:;"><i class="typcn typcn-mail"></i></a>
-                </div>
-                <div class="nav-link">
-                    <a href="javascript:;"><i class="typcn typcn-folder"></i></a>
-                </div>
-                <div class="nav-link">
-                    <a href="javascript:;"><i class="typcn typcn-document-text"></i></a>
-                </div> -->
-      </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <!-- <ul class="navbar-nav mr-lg-2">
-                    <li class="nav-item ml-0">
-                        <h4 class="mb-0">Dashboard</h4>
-                    </li>
-                    <li class="nav-item">
-                        <div class="d-flex align-items-baseline">
-                            <p class="mb-0">Home</p>
-                            <i class="typcn typcn-chevron-right"></i>
-                            <p class="mb-0">Main Dahboard</p>
+        <div class="navbar-links-wrapper d-flex align-items-stretch">
+            <!-- Optional links here -->
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-search d-block d-md-none w-100"> <!-- Mobile View -->
+                    <form action="" method="POST" class="w-100">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" id="search" type="submit" name="cari">
+                                    <i class="typcn typcn-zoom"></i>
+                                </button>
+                            </div>
                         </div>
-                    </li>
-                </ul> -->
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-search d-none d-md-block mr-0">
-            <form action="" method="POST">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
-                <div class="input-group-prepend">
-                  <button class="input-group-text" id="search" type="submit" name="cari">
-                    <i class="typcn typcn-zoom"></i>
-                  </button>
-                </div>
-              </div>
-
-            </form>
-          </li>
-        </ul>
-      </div>
+                    </form>
+                </li>
+                <li class="nav-item nav-search d-none d-md-block mr-0"> <!-- Desktop View -->
+                    <form action="" method="POST">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" id="search" type="submit" name="cari">
+                                    <i class="typcn typcn-zoom"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
@@ -233,20 +221,20 @@ include("../../database/database.php");
     <!-- container-scroller -->
 
     <!-- base:js -->
-    <script src="vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page-->
-    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="../../vendors/chart.js/Chart.min.js"></script>
     <!-- End plugin js for this page-->
     <!-- inject:js -->
-    <script src="js/off-canvas.js"></script>
-    <script src="js/hoverable-collapse.js"></script>
-    <script src="js/template.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/todolist.js"></script>
+    <script src="../../js/off-canvas.js"></script>
+    <script src="../../js/hoverable-collapse.js"></script>
+    <script src="../../js/template.js"></script>
+    <script src="../../js/settings.js"></script>
+    <script src="../../js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="js/dashboard.js"></script>
+    <script src="../../js/dashboard.js"></script>
     <!-- End custom js for this page-->
 </body>
 

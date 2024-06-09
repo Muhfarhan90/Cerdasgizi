@@ -4,7 +4,8 @@ include("../../database/database.php");
 $id = $_GET['id'];
 $id_user = $_GET['id_user'];
 $row = mysqli_affected_rows($conn);
-
+$pasienDelete = false;
+$userDelete = false;
 try {
     $query = "DELETE FROM `patient` WHERE `id_patient` = '$id'";
     $result = mysqli_query($conn, $query);
@@ -15,7 +16,6 @@ try {
         $pasienDelete = false;
     }
 } catch (mysqli_sql_exception) {
-    echo "data pasien gagal dihapus";
 }
 
 try {
@@ -27,7 +27,6 @@ try {
         $userDelete = false;
     }
 } catch (mysqli_sql_exception) {
-    echo "data user gagal dihapus";
 }
 
 if ($pasienDelete && $userDelete) {
