@@ -75,7 +75,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                     <div class="row">
                         <div class="col-md-6 col-lg-7 col-xl-12" style="margin-bottom: 4rem;">
                             <ul class="d-flex flex-column list-unstyled chat-container">
-                                <?php if (mysqli_num_rows($result_chat) > 0): ?>
+                                <?php if (mysqli_num_rows($result_chat) > 0) : ?>
                                     <?php while ($row_chat = mysqli_fetch_assoc($result_chat)) : ?>
                                         <?php if ($row_chat['id_role'] == 3) : ?>
                                             <!-- Pesan dari pasien -->
@@ -95,7 +95,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                                     </div>
                                                 </div>
                                             </li>
-                                        <?php elseif ($row_chat['id_role'] == 2): ?>
+                                        <?php elseif ($row_chat['id_role'] == 2) : ?>
                                             <!-- Pesan dari ahli gizi -->
                                             <li class="d-flex justify-content-start mb-4">
                                                 <div class="card message-left">
@@ -115,7 +115,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                             </li>
                                         <?php endif; ?>
                                     <?php endwhile; ?>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <li class="text-center">Tidak ada pesan.</li>
                                 <?php endif; ?>
                             </ul>

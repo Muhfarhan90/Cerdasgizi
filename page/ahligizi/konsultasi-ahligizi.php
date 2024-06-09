@@ -22,7 +22,7 @@ include('../../database/database.php');
     <link rel="shortcut icon" href="../../images/favicon.png" />
 </head>
 
-<body>
+<>
 
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
@@ -54,7 +54,7 @@ include('../../database/database.php');
                     </div>
                 </div>
             </div>
-        
+
             <!-- partial -->
             <!-- partial:partials/_sidebar.html -->
             <?php
@@ -193,5 +193,26 @@ include('../../database/database.php');
             <!-- page-body-wrapper ends -->
         </div>
         <!-- container-scroller -->
+    </div>
 
-        <!-- base:
+    <!-- base:js -->
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="../../vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="../../js/off-canvas.js"></script>
+    <script src="../../js/hoverable-collapse.js"></script>
+    <script src="../../js/template.js"></script>
+    <script src="../../js/settings.js"></script>
+    <script src="../../js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script src="../../js/dashboard.js"></script>
+    </body>
+
+</html>
