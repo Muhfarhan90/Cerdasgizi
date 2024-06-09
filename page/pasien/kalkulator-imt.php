@@ -11,7 +11,7 @@ if (isset($_POST['hitung'])) {
 
   // validasi
   if (is_numeric($tinggi) && is_numeric($berat) && $tinggi > 0 && $berat > 0) {
-    $hasil = $berat / (($tinggi / 100) * ($tinggi / 100));
+    $hasil = round($berat / (($tinggi / 100) * ($tinggi / 100)), 2);
     if ($hasil < 18.4) {
       $kategori = "Berat badan kurang";
     } else if ($hasil >= 18.4 && $hasil <= 24.9) {
