@@ -1,5 +1,31 @@
 <?php
 include("../../logout.php");
+include('../../database/database.php');
+$id_user = $_SESSION['id_user'];
+$query_pasien = "SELECT * FROM patient WHERE id_user = $id_user";
+$result_pasien = mysqli_query($conn, $query_pasien);
+$row = mysqli_fetch_assoc($result_pasien);
+$id_pasien = $row['ID_PATIENT'];
+
+// grafik Imt
+$query_imt = "SELECT result_bmi, DATE_FORMAT(date_check_bmi, '%Y-%m-%d') AS bulan
+FROM bmi_calculator
+WHERE id_patient = $id_pasien
+ORDER BY bulan;";
+$result_imt = mysqli_query($conn, $query_imt);
+
+$hasil_bmi = [];
+$cek_bmi = [];
+if ($result_imt->num_rows > 0) {
+  while ($row = $result_imt->fetch_assoc()) {
+    $hasil_bmi[] = $row['result_bmi'];
+    $cek_bmi[] = $row['bulan'];
+  }
+}
+// var_dump($hasil_bmi);
+// var_dump($cek_bmi);
+// die;
+
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +43,11 @@ include("../../logout.php");
   <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../../images/favicon.png" />
+  <style>
+    th,td {
+      padding: 0.5rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -66,6 +97,45 @@ include("../../logout.php");
               <h1 class="mb-2 text-titlecase mb-4">SELAMAT DATANG<?= " " . $_SESSION['username_user'] ?></h1>
             </div>
           </div>
+          <div class="row">
+            <div class="col-xl-6 grid-margin stretch-card flex-column">
+              <div class="card">
+                <div class="card-body">
+                  <div>
+                    <canvas id="grafikIMT"></canvas>
+                  </div>
+                  <div style="margin-top: 1rem;">
+                    <table border="1" >
+                      <tr>
+                        <th>Nilai Imt</th>
+                        <th>Artinya</th>
+                      </tr>
+                      <tr>
+                        <td>18.4 ke bawah</td>
+                        <td>Berat badan kurang</td>
+                      </tr>
+                      <tr>
+                        <td>18.5 - 24.9</td>
+                        <td>Berat badan Ideal</td>
+                      </tr>
+                      <tr>
+                        <td>25 - 29.9</td>
+                        <td>Berat badan lebih</td>
+                      </tr>
+                      <tr>
+                        <td>30 - 39.9</td>
+                        <td>Gemuk</td>
+                      </tr>
+                      <tr>
+                        <td>40 ke atas</td>
+                        <td>Sangat Gemuk</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- partial -->
         </div>
@@ -91,6 +161,54 @@ include("../../logout.php");
   <!-- Custom js for this page-->
   <script src="../../js/dashboard.js"></script>
   <!-- End custom js for this page-->
+
+  <!-- GRAFIKK -->
+  <script>
+    var tanggal = <?= json_encode($cek_bmi); ?>;
+    var hasil = <?= json_encode($hasil_bmi); ?>;
+
+
+    const labels = tanggal;
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: ['Hasil Kalkulator IMT'],
+        data: hasil,
+        fill: false,
+        borderColor: ['rgb(75, 192, 192)'],
+        tension: 0.1
+      }]
+    };
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+          ticks: {
+            callback: function(value) {
+              if (Number.isInteger(value)) {
+                return value;
+              }
+            },
+            stepSize: 1
+          }
+
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Grafik Indeks Masa Tubuh'
+
+          }
+        }
+      }
+    };
+    const grafikImt = document.getElementById('grafikIMT').getContext('2d');
+    new Chart(grafikImt, config);
+  </script>
 </body>
 
 </html>
