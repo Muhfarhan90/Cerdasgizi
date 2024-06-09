@@ -269,8 +269,8 @@ if ($result_konsultasi->num_rows > 0) {
     //     return months.slice(0, count);
     //   }
     // };
-    var bulan_konsul = <?= json_encode($bulan_konsul) ?>;
-    var total_konsultasi = <?= json_encode($total_konsultasi) ?>;
+    const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
+    const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
     const label_konsul = bulan_konsul;
     const data_konsul = {
       labels: label_konsul,
