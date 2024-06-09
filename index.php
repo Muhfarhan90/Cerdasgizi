@@ -23,20 +23,24 @@ if (isset($_POST["login"])) {
     if ($id_role == 1) {
       echo "<script>
       alert('Selamat Login Anda berhasil..');
-        </script>";
-      header("location: page/admin/dashboard-admin.php");
+      document.location.href= 'page/admin/dashboard-admin.php';
+      </script>";
+      // header("location: page/admin/dashboard-admin.php");
       exit();
     } else if ($id_role == 2) {
       echo "<script>
     alert('Selamat Login Anda berhasil..');
+          document.location.href= 'page/ahligizi/dashboard-ahligizi.php';
+
       </script>";
-      header("location: page/ahligizi/dashboard-ahligizi.php");
+      // header("location: page/ahligizi/dashboard-ahligizi.php");
       exit();
     } else {
       echo "<script>
       alert('Selamat Login Anda berhasil..');
+            document.location.href= 'page/pasien/dashboard-pasien.php';
         </script>";
-      header('location: page/pasien/dashboard-pasien.php');
+      // header('location: page/pasien/dashboard-pasien.php');
       exit();
     }
   } else {
