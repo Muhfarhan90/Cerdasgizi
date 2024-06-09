@@ -22,10 +22,19 @@ if ($result_imt->num_rows > 0) {
     $cek_bmi[] = $row['bulan'];
   }
 }
-// var_dump($hasil_bmi);
-// var_dump($cek_bmi);
-// die;
 
+// grafik konsultasi
+$query_konsultasi = "SELECT DATE_FORMAT(date_consultation, '%Y-%m') AS bulan, COUNT(*) AS total_konsultasi FROM consultation WHERE id_patient = $id_pasien GROUP BY bulan ORDER BY bulan ";
+$result_konsultasi = mysqli_query($conn, $query_konsultasi);
+
+$bulan_konsul = [];
+$total_konsultasi = [];
+if ($result_konsultasi->num_rows > 0) {
+  while ($row = $result_konsultasi->fetch_assoc()) {
+    $bulan_konsul[] = $row['bulan'];
+    $total_konsultasi[] = $row['total_konsultasi'];
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +53,8 @@ if ($result_imt->num_rows > 0) {
   <!-- endinject -->
   <link rel="shortcut icon" href="../../images/favicon.png" />
   <style>
-    th,td {
+    th,
+    td {
       padding: 0.5rem;
     }
   </style>
@@ -105,7 +115,7 @@ if ($result_imt->num_rows > 0) {
                     <canvas id="grafikIMT"></canvas>
                   </div>
                   <div style="margin-top: 1rem;">
-                    <table border="1" >
+                    <table border="1">
                       <tr>
                         <th>Nilai Imt</th>
                         <th>Artinya</th>
@@ -135,15 +145,55 @@ if ($result_imt->num_rows > 0) {
                 </div>
               </div>
             </div>
+            <div class="col-xl-6 grid-margin stretch-card flex-column">
+              <div class="card">
+                <div class="card-body">
+                  <div>
+                    <canvas id="grafik_konsultasi"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          <div class="row">
+            <div>
+              <h1>Artikel Terbaru </h1>
 
-          <!-- partial -->
+            </div>
+          </div>
+          <div class="row">
+            <?php
+            $query = "SELECT * FROM article ORDER BY publication_date DESC LIMIT 4";
+            $result = mysqli_query($conn, $query);
+            while ($row = mysqli_fetch_assoc($result)) {
+              $content = $row['CONTENT_ARTICLE'];
+              $excerpt = substr($content, 0, 100) . "...";
+            ?>
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card" style="width: 18rem;">
+                  <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
+                  <div class="card-body">
+                    <h5 class="card-title"><?= $row['TITLE'] ?></h5>
+                    <p class="card-text"><?= $excerpt ?></p>
+                    <a href="detail-artikel.php?id=<?= $row['ID_ARTICLE'] ?>" class="btn btn-primary">Lihat Selengkapnya</a>
+                  </div>
+                </div>
+              </div>
+            <?php
+            }
+
+            ?>
+
+          </div>
         </div>
-        <!-- main-panel ends -->
+
+        <!-- partial -->
       </div>
-      <!-- page-body-wrapper ends -->
+      <!-- main-panel ends -->
     </div>
-    <!-- container-scroller -->
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
   </div>
   <!-- base:js -->
   <script src="../../vendors/js/vendor.bundle.base.js"></script>
@@ -162,7 +212,7 @@ if ($result_imt->num_rows > 0) {
   <script src="../../js/dashboard.js"></script>
   <!-- End custom js for this page-->
 
-  <!-- GRAFIKK -->
+  <!-- GRAFIKK IMT-->
   <script>
     var tanggal = <?= json_encode($cek_bmi); ?>;
     var hasil = <?= json_encode($hasil_bmi); ?>;
@@ -208,6 +258,77 @@ if ($result_imt->num_rows > 0) {
     };
     const grafikImt = document.getElementById('grafikIMT').getContext('2d');
     new Chart(grafikImt, config);
+  </script>
+
+  <!-- GRAFIK KONSULTASI -->
+  <script>
+    // const Utils = {
+    //   months: function(config) {
+    //     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    //     const count = config.count || 12;
+    //     return months.slice(0, count);
+    //   }
+    // };
+    var bulan_konsul = <?= json_encode($bulan_konsul) ?>;
+    var total_konsultasi = <?= json_encode($total_konsultasi) ?>;
+    const label_konsul = bulan_konsul;
+    const data_konsul = {
+      labels: label_konsul,
+      datasets: [{
+        label: 'Total Konsultasi',
+        data: total_konsultasi,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    };
+    const konfig_konsul = {
+      type: 'bar',
+      data: data_konsul,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1,
+            }
+          },
+
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Total Konsultasi Yang Dilakukan',
+          },
+          legend: {
+            display: false
+          }
+        }
+      },
+    };
+    const grafik_konsultasi = document.getElementById('grafik_konsultasi').getContext('2d');
+    new Chart(grafik_konsultasi, konfig_konsul);
   </script>
 </body>
 
