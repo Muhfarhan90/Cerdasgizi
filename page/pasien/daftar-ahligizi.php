@@ -120,44 +120,44 @@ include('../../database/database.php');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-6 grid-margin stretch-card flex-column">
-                            <?php
-                            if (isset($_POST['cari'])) {
-                                $katakunci = $_POST['katakunci'];
-                                $query = "SELECT * FROM nutritionist WHERE fullname_nutritionist LIKE '%$katakunci%'";
-                                $result = mysqli_query($conn, $query);
-
-                            } else {
-                                $query = "SELECT * FROM nutritionist";
-                                $result = mysqli_query($conn, $query);
-                            }
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                            ?>
-                                        <div class="card border border-primary" style="width: 18rem;">
-
-
-                                            <img src="../../images/icons8-doctor-32.png" class="card-img-top rounded-circle w-25" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?= $row['FULLNAME_NUTRITIONIST'] ?></h5>
-                                                <p class="card-text">Berpengalaman <?= $row['YEARS_OF_EXPERIENCE'] ?> Tahun</p>
-                                                <p class="card-text"><?= $row['EDUCATION'] ?></p>
-                                                <a href="detail-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>" class="btn btn-primary">Lihat Ahligizi</a>
-                                            </div>
+                        <?php
+                        if (isset($_POST['cari'])) {
+                            $katakunci = $_POST['katakunci'];
+                            $query = "SELECT * FROM nutritionist WHERE fullname_nutritionist LIKE '%$katakunci%'";
+                            $result = mysqli_query($conn, $query);
+                        } else {
+                            $query = "SELECT * FROM nutritionist";
+                            $result = mysqli_query($conn, $query);
+                        }
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                        ?>
+                                <div class="col-xl-4 grid-margin stretch-card flex-column">
+                                    <div class="card border border-primary" style="width: 18rem;">
 
 
+                                        <img src="../../images/icons8-doctor-32.png" class="card-img-top rounded-circle w-25" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?= $row['FULLNAME_NUTRITIONIST'] ?></h5>
+                                            <p class="card-text">Berpengalaman <?= $row['YEARS_OF_EXPERIENCE'] ?> Tahun</p>
+                                            <p class="card-text"><?= $row['EDUCATION'] ?></p>
+                                            <a href="detail-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>" class="btn btn-primary">Lihat Ahligizi</a>
                                         </div>
-                            <?php
 
-                                    }
-                                } else {
-                                    echo "Tidak ada data yang ditemukan";
-                                }
-                           
 
-                            ?>
+                                    </div>
+                                </div>
 
-                        </div>
+                        <?php
+
+                            }
+                        } else {
+                            echo "Tidak ada data yang ditemukan";
+                        }
+
+
+                        ?>
+
                     </div>
 
 
