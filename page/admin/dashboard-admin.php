@@ -73,6 +73,60 @@ if ($result_pasien->num_rows > 0) {
     $total_konsul[] = $row["total_konsultasi"];
   }
 }
+
+
+// grafik artikel
+$query_artikel = "SELECT nutritionist.fullname_nutritionist, COUNT(*) AS jumlah_artikel FROM article JOIN nutritionist ON article.id_nutritionist = nutritionist.id_nutritionist GROUP BY nutritionist.fullname_nutritionist ORDER BY jumlah_artikel DESC LIMIT 5";
+$result_artikel = mysqli_query($conn, $query_artikel);
+$artikel = [];
+$jumlah_artikel = [];
+if ($result_artikel->num_rows > 0) {
+  while ($row = $result_artikel->fetch_assoc()) {
+    $artikel[] = $row['fullname_nutritionist'];
+    $jumlah_artikel[] = $row['jumlah_artikel'];
+  }
+}
+
+// grafik bulan
+$query_konsul = "
+SELECT 
+    DATE_FORMAT(date_consultation, '%Y-%m') AS month,
+    COUNT(*) AS total_konsultasi
+FROM 
+    consultation
+GROUP BY 
+    DATE_FORMAT(date_consultation, '%Y-%m')
+ORDER BY 
+    DATE_FORMAT(date_consultation, '%Y-%m');
+";
+
+$result_konsul = $conn->query($query_konsul);
+
+$months = [];
+$total_konsultasi = [];
+
+if ($result_konsul->num_rows > 0) {
+  while ($row = $result_konsul->fetch_assoc()) {
+    $months[] = $row["month"];
+    $total_konsultasi[] = $row["total_konsultasi"];
+  }
+}
+
+// grafik artikel yg paling bnyk komentar
+$query_komen = "SELECT article.id_article AS id_artikel, article.title AS judul_artikel, COUNT(comment.id_article) AS total_komentar
+FROM article
+LEFT JOIN comment ON article.id_article = comment.id_article
+GROUP BY article.id_article LIMIT 5;";
+$result_komen = mysqli_query($conn, $query_komen);
+
+$judul = [];
+$total_komen = [];
+if ($result_komen->num_rows > 0) {
+  while ($row = $result_komen->fetch_assoc()) {
+    $judul[] = $row['judul_artikel'];
+    $total_komen[] = $row['total_komentar'];
+  }
+}
 ?>
 
 
@@ -288,7 +342,7 @@ if ($result_pasien->num_rows > 0) {
           <!-- GRAFIK -->
           <div class="row">
             <div class="col-xl-4 grid-margin stretch-card">
-              <div class="card h-100">
+              <div class="card">
                 <div class="card-body">
                   <div>
                     <canvas id="myChart"></canvas>
@@ -299,7 +353,7 @@ if ($result_pasien->num_rows > 0) {
               </div>
             </div>
             <div class="col-xl-4 grid-margin stretch-card">
-              <div class="card h-100">
+              <div class="card">
                 <div class="card-body">
                   <div>
                     <canvas id="myChart2"></canvas>
@@ -308,7 +362,7 @@ if ($result_pasien->num_rows > 0) {
               </div>
             </div>
             <div class="col-xl-4 grid-margin stretch-card">
-              <div class="card h-100">
+              <div class="card">
                 <div class="card-body">
                   <div>
                     <canvas id="myChart3"></canvas>
@@ -330,6 +384,25 @@ if ($result_pasien->num_rows > 0) {
                 </div>
               </div>
             </div>
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart5"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart6"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
 
@@ -422,11 +495,11 @@ if ($result_pasien->num_rows > 0) {
           label: 'Total',
           data: jumlahKonsulData,
           backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+            'red',
+            'blue',
+            'yellow',
+            'green',
+            'purple'
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -455,11 +528,18 @@ if ($result_pasien->num_rows > 0) {
             beginAtZero: true,
             stepSize: 1,
             min: 0,
-            max: roundedMaxKonsul
+            max: roundedMaxKonsul,
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
           }
 
-        }
-
+        },
       }
     });
   </script>
@@ -515,13 +595,195 @@ if ($result_pasien->num_rows > 0) {
             beginAtZero: true,
             stepSize: 1,
             min: 0,
-            max: roundedMaxKonsul
+            max: roundedMaxKonsul,
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
           }
 
         }
 
       }
     });
+  </script>
+
+  <!-- Grafik artikel -->
+  <script>
+    var dataArtikel = <?= json_encode($artikel) ?>;
+    var jumlah_artikel = <?= json_encode($jumlah_artikel) ?>;
+    // Calculate the maximum value in the dataset
+    var maxArtikel = Math.max.apply(Math, jumlah_artikel);
+
+    // Round up the maximum value to the nearest integer
+    var roundedMaxArtikel = Math.ceil(maxArtikel);
+    const ctx4 = document.getElementById('myChart4');
+    new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: dataArtikel,
+        datasets: [{
+          label: 'Total',
+          data: jumlah_artikel,
+          backgroundColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)'
+          ],
+          borderWidth: 1,
+
+        }],
+
+      },
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: 'Jumlah Artikel Ahligizi'
+          },
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+            min: 0,
+            max: roundedMaxArtikel,
+
+          },
+          x: {
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
+          }
+
+
+        },
+        indexAxis: 'y'
+
+      }
+    });
+  </script>
+
+  <!-- grafik 5 -->
+  <script>
+    var months = <?= json_encode($months) ?>;
+    var totalKonsultasi = <?= json_encode($total_konsultasi) ?>;
+    const data = {
+      labels: months,
+      datasets: [{
+        label: 'Total Konsultasi',
+        data: totalKonsultasi,
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
+          }
+        },
+      }
+    };
+    const ctx5 = document.getElementById('myChart5').getContext('2d');
+    var chart5 = new Chart(ctx5, config);
+  </script>
+
+  <script>
+    // grafik artikel paling banyak komentar
+    var judul = <?= json_encode($judul) ?>;
+    var totalKomen = <?= json_encode($total_komen) ?>;
+    const label2 = judul
+    const data2 = {
+      labels: label2,
+      datasets: [{
+        label: 'Total Komentar',
+        data: totalKomen,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 205, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+      }]
+    };
+    const config2 = {
+      type: 'bar',
+      data: data2,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+
+          },
+          x: {
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
+          }
+        },
+        indexAxis: 'y',
+
+      },
+      title: {
+        display: true,
+        text: 'Total Artikel Komen Terbanyak'
+      }
+
+    };
+    const ctx6 = document.getElementById('myChart6').getContext('2d');
+    new Chart(ctx6, config2);
   </script>
 </body>
 
