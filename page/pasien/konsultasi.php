@@ -6,9 +6,6 @@ $id_user = $_SESSION['id_user'];
 $query_pasien = "SELECT * FROM patient WHERE id_user = $id_user";
 $result_pasien = mysqli_query($conn, $query_pasien);
 $row_pasien = mysqli_fetch_assoc($result_pasien);
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +79,7 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
           </div>
 
           <div class="row">
-            <div class="col-xl-12 grid-margin stretch-card flex-column">
+            <div class="col-xl-8 grid-margin stretch-card flex-column">
               <div class="card">
                 <?php
                 // Mendapatkan nilai id_patient terakhir
@@ -153,7 +150,7 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                   }
                   ?>
                 </table> -->
-                <table class="table">
+                <table class="table table-responsive">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -214,14 +211,9 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                   }
                   ?>
                 </table>
-
               </div>
             </div>
           </div>
-
-
-
-
         </div>
         <!-- main-panel ends -->
       </div>

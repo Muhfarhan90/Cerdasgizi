@@ -70,7 +70,7 @@ include('../../database/database.php');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-12 grid-margin stretch-card flex-column">
+                        <div class="col-xl-8 grid-margin stretch-card flex-column">
                             <div class="card">
                                 <?php
                                 // mengambil id user
@@ -88,7 +88,7 @@ include('../../database/database.php');
                                 $result3 = mysqli_query($conn, $query);
                                 $no = 1;
                                 ?>
-                                <table class="table">
+                                <table class="table table-responsive">
                                     <thead>
                                         <tr>
                                             <th>No</th>
