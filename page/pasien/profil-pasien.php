@@ -10,7 +10,6 @@ if (!isset($_SESSION['is_login']) && $_SESSION['id_role'] == 3 || $_SESSION['id_
 $user_id = $_SESSION['id_user'];
 $query = "SELECT * FROM patient WHERE id_user = $user_id";
 $result = mysqli_query($conn, $query);
-$row = mysqli_fetch_assoc($result);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +61,7 @@ $row = mysqli_fetch_assoc($result);
           </div>
         </div>
       </div>
-    
+
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <?php
@@ -77,74 +76,81 @@ $row = mysqli_fetch_assoc($result);
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Profil Pengguna</h4>
-                  <form class="form-sample">
-                    <p class="card-description">
-                      Personal info
-                    </p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Lengkap</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['FULLNAME_PATIENT'] ?>" disabled />
+                  <?php
+                  while ($row = mysqli_fetch_assoc($result)) {
+                  ?>
+                    <form class="form-sample">
+                      <p class="card-description">
+                        Personal info
+                      </p>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Nama Lengkap</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="<?= $row['FULLNAME_PATIENT'] ?>" disabled />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="<?= $row['EMAIL_PATIENT'] ?>" disabled />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Email</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['EMAIL_PATIENT'] ?>" disabled />
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="<?= $row['GENDER'] ?>" disabled />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                            <div class="col-sm-9">
+                              <input class="form-control" placeholder="dd/mm/yyyy" value="<?= $row['DATE_OF_BIRTH'] ?>" disabled />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['GENDER'] ?>" disabled />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <input class="form-control" placeholder="dd/mm/yyyy" value="<?= $row['DATE_OF_BIRTH'] ?>" disabled />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
 
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tinggi Badan</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['HEIGHT'] ?>" disabled />
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tinggi Badan</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="<?= $row['HEIGHT'] ?>" disabled />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Berat Badan</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" value="<?= $row['WEIGHT'] ?>" disabled />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Berat Badan</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['WEIGHT'] ?>" disabled />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <a href="edit-profil-pasien.php?id=<?= $row['ID_PATIENT'] ?>">
-                      <button type="button" class="btn btn-dark btn-icon-text">
-                        Edit
-                        <i class="typcn typcn-document btn-icon-append"></i>
-                      </button>
-                    </a>
+                      <a href="edit-profil-pasien.php?id=<?= $row['ID_PATIENT'] ?>">
+                        <button type="button" class="btn btn-dark btn-icon-text">
+                          Edit
+                          <i class="typcn typcn-document btn-icon-append"></i>
+                        </button>
+                      </a>
 
-                  </form>
+                    </form>
+                  <?php
+                  }
+                  ?>
                 </div>
               </div>
             </div>
