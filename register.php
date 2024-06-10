@@ -93,17 +93,18 @@ if (isset($_POST["register"])) {
                             <h6 class="font-weight-light">Silahkan isi data diri anda untuk mendaftar</h6>
                             <form class="pt-3" action="" method="POST">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg " id="username" placeholder="Username" name="username" required>
+                                    <input type="text" class="form-control form-control-lg " id="username" placeholder="Nama Lengkap" name="nama_lengkap" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" class="form-control form-control-lg" id="email" placeholder="Email" name="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" required>
+                                    <input type="text" class="form-control form-control-lg " id="username" placeholder="Username" name="username" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg " id="username" placeholder="Nama Lengkap" name="nama_lengkap" required>
+                                    <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" required>
                                 </div>
+
                                 <div class="form-group">
                                     <input type="date" class="form-control form-control-lg" id="tgl_lahir" placeholder="Tanggal lahir" name="tgl_lahir" required>
                                 </div>
