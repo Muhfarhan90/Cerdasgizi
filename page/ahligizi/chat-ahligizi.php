@@ -14,7 +14,7 @@ $id_konsultasi = $_GET['id_consultation'];
 $query_konsul = "SELECT * FROM `consultation` WHERE `id_consultation` = '$id_konsultasi'";
 $result_konsul = mysqli_query($conn, $query_konsul);
 $row_konsul = mysqli_fetch_assoc($result_konsul);
-$id_ahligizi = $row_konsul['id_nutritionist'];
+$id_ahligizi = $row_konsul['ID_NUTRITIONIST'];
 $id_pasien = $row_konsul['ID_PATIENT'];
 
 // Jika formulir dikirim
@@ -57,6 +57,13 @@ $result_chat = mysqli_query($conn, $query_chat);
     <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="../../css/vertical-layout-light/style.css">
     <link rel="shortcut icon" href="../../images/favicon.png" />
+    <style>
+        .chat-input {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
 </head>
 
 <body>
@@ -75,7 +82,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                     <div class="row">
                         <div class="col-md-6 col-lg-7 col-xl-12" style="margin-bottom: 4rem;">
                             <ul class="d-flex flex-column list-unstyled chat-container">
-                                <?php if (mysqli_num_rows($result_chat) > 0): ?>
+                                <?php if (mysqli_num_rows($result_chat) > 0) : ?>
                                     <?php while ($row_chat = mysqli_fetch_assoc($result_chat)) : ?>
                                         <?php if ($row_chat['id_role'] == 2) : ?>
                                             <!-- Pesan dari pasien -->
@@ -95,7 +102,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                                     </div>
                                                 </div>
                                             </li>
-                                        <?php elseif ($row_chat['id_role'] == 3): ?>
+                                        <?php elseif ($row_chat['id_role'] == 3) : ?>
                                             <!-- Pesan dari ahli gizi -->
                                             <li class="d-flex justify-content-start mb-4">
                                                 <div class="card message-left">
@@ -115,17 +122,23 @@ $result_chat = mysqli_query($conn, $query_chat);
                                             </li>
                                         <?php endif; ?>
                                     <?php endwhile; ?>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <li class="text-center">Tidak ada pesan.</li>
                                 <?php endif; ?>
                             </ul>
-                            <form action="" method="POST" class="chat-input fixed-bottom col-xl-10 " style="margin-left: 16rem;">
-                                <div class="form-outline">
-                                    <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat"></textarea>
+                            <div class="container-fluid">
+                                <div class="row justify-content-center">
+                                    <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                                        <form action="" method="POST" class="chat-input fixed-bottom">
+                                            <div class="form-outline">
+                                                <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat"></textarea>
+                                            </div>
+                                            <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
+                                            <button type="submit" class="btn btn-info btn-rounded float-end mt-2" name="kirim">Send</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
-                                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-info btn-rounded float-end mt-2" name="kirim">Send</button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
