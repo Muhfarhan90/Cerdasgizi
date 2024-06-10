@@ -70,120 +70,123 @@ include('../../database/database.php');
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-8 grid-margin stretch-card flex-column">
+                        <div class="col-xl-12 grid-margin stretch-card flex-column">
                             <div class="card">
-                                <?php
-                                // mengambil id user
-                                $id_user = $_SESSION['id_user'];
-                                // query untuk mengambil id ahligizi berdasarkan id user
-                                $sql = "SELECT * FROM nutritionist WHERE id_user = $id_user";
-                                $result = mysqli_query($conn, $sql);
-                                $row = mysqli_fetch_assoc($result);
-                                $id_ahligizi = $row['ID_NUTRITIONIST'];
-                                // query untuk menampilkan tabel pengajuan
-                                $query = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION FROM consultation
+                                <div class="table-responsive pt-3">
+                                    <?php
+                                    // mengambil id user
+                                    $id_user = $_SESSION['id_user'];
+                                    // query untuk mengambil id ahligizi berdasarkan id user
+                                    $sql = "SELECT * FROM nutritionist WHERE id_user = $id_user";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row = mysqli_fetch_assoc($result);
+                                    $id_ahligizi = $row['ID_NUTRITIONIST'];
+                                    // query untuk menampilkan tabel pengajuan
+                                    $query = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION FROM consultation
                                           INNER JOIN patient ON consultation.id_patient = patient.id_patient
                                           INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
                                           WHERE consultation.id_nutritionist = $id_ahligizi AND consultation.STATUS_CONSULTATION IN ('sedang menunggu', 'dalam proses', 'selesai')";
-                                $result3 = mysqli_query($conn, $query);
-                                $no = 1;
-                                ?>
-                                <table class="table table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Pasien</th>
-                                            <th>Nama Ahli Gizi</th>
-                                            <th>Tanggal Konsultasi</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <?php
-                                    if (mysqli_num_rows($result3) > 0) {
-                                        while ($Row = mysqli_fetch_assoc($result3)) {
-                                            $id_konsultasi = $Row['id_consultation'];
+                                    $result3 = mysqli_query($conn, $query);
+                                    $no = 1;
                                     ?>
-                                            <tbody>
-                                                <tr>
-                                                    <td><?= $no ?></td>
-                                                    <td><?= $Row['fullname_patient'] ?></td>
-                                                    <td><?= $Row['fullname_nutritionist'] ?></td>
-                                                    <td><?= $Row['DATE_CONSULTATION'] ?></td>
-                                                    <td>
-                                                        <?php
-                                                        if ($Row['STATUS_CONSULTATION'] == "sedang menunggu") {
-                                                            echo '<label class="badge badge-warning">' . $Row['STATUS_CONSULTATION'] . '</label>';
-                                                        } elseif ($Row['STATUS_CONSULTATION'] == "dalam proses") {
-                                                            echo '<label class="badge badge-primary">' . $Row['STATUS_CONSULTATION'] . '</label>';
-                                                        } elseif ($Row['STATUS_CONSULTATION'] == "selesai") {
-                                                            echo '<label class="badge badge-success">' . $Row['STATUS_CONSULTATION'] . '</label>';
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        if ($Row['STATUS_CONSULTATION'] == "sedang menunggu") {
-                                                        ?>
-                                                            <form action="" method="GET" style="display:inline-block;">
-                                                                <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
-                                                                <button type="submit" class="btn btn-success" name="terima">Terima</button>
-                                                            </form>
-                                                            <form action="" method="GET" style="display:inline-block;">
-                                                                <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
-                                                                <button type="submit" class="btn btn-danger" name="tolak">Tolak</button>
-                                                            </form>
-                                                        <?php
-                                                        } elseif ($Row['STATUS_CONSULTATION'] == "dalam proses") {
-                                                        ?>
-                                                            <a href="chat-ahligizi.php?id_consultation=<?= $id_konsultasi ?>" class="btn btn-info">Buka Chat</a>
-                                                            <form action="" method="GET" style="display:inline-block;">
-                                                                <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
-                                                                <button type="submit" class="btn btn-secondary" name="akhiri">Akhiri Konsultasi</button>
-                                                            </form>
-                                                        <?php
-                                                        } elseif ($Row['STATUS_CONSULTATION'] == "selesai") {
-                                                            echo '<a href="riwayat-chat-ahligizi.php?id_consultation=' . $id_konsultasi . '" class="btn btn-secondary">Lihat Riwayat</a>';
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                    <?php
-                                            $no++;
-                                        }
+                                    <table class="table table-striped project-orders-table">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Pasien</th>
+                                                <th>Nama Ahli Gizi</th>
+                                                <th>Tanggal Konsultasi</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <?php
+                                        if (mysqli_num_rows($result3) > 0) {
+                                            while ($Row = mysqli_fetch_assoc($result3)) {
+                                                $id_konsultasi = $Row['id_consultation'];
+                                        ?>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><?= $no ?></td>
+                                                        <td><?= $Row['fullname_patient'] ?></td>
+                                                        <td><?= $Row['fullname_nutritionist'] ?></td>
+                                                        <td><?= $Row['DATE_CONSULTATION'] ?></td>
+                                                        <td>
+                                                            <?php
+                                                            if ($Row['STATUS_CONSULTATION'] == "sedang menunggu") {
+                                                                echo '<label class="badge badge-warning">' . $Row['STATUS_CONSULTATION'] . '</label>';
+                                                            } elseif ($Row['STATUS_CONSULTATION'] == "dalam proses") {
+                                                                echo '<label class="badge badge-primary">' . $Row['STATUS_CONSULTATION'] . '</label>';
+                                                            } elseif ($Row['STATUS_CONSULTATION'] == "selesai") {
+                                                                echo '<label class="badge badge-success">' . $Row['STATUS_CONSULTATION'] . '</label>';
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if ($Row['STATUS_CONSULTATION'] == "sedang menunggu") {
+                                                            ?>
+                                                                <form action="" method="GET" style="display:inline-block;">
+                                                                    <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
+                                                                    <button type="submit" class="btn btn-success" name="terima">Terima</button>
+                                                                </form>
+                                                                <form action="" method="GET" style="display:inline-block;">
+                                                                    <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
+                                                                    <button type="submit" class="btn btn-danger" name="tolak">Tolak</button>
+                                                                </form>
+                                                            <?php
+                                                            } elseif ($Row['STATUS_CONSULTATION'] == "dalam proses") {
+                                                            ?>
+                                                                <a href="chat-ahligizi.php?id_consultation=<?= $id_konsultasi ?>" class="btn btn-info">Buka Chat</a>
+                                                                <form action="" method="GET" style="display:inline-block;">
+                                                                    <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
+                                                                    <button type="submit" class="btn btn-secondary" name="akhiri">Akhiri Konsultasi</button>
+                                                                </form>
+                                                            <?php
+                                                            } elseif ($Row['STATUS_CONSULTATION'] == "selesai") {
+                                                                echo '<a href="riwayat-chat-ahligizi.php?id_consultation=' . $id_konsultasi . '" class="btn btn-secondary">Lihat Riwayat</a>';
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                        <?php
+                                                $no++;
+                                            }
 
-                                        if (isset($_GET['terima'])) {
-                                            $id_konsultasi = $_GET['id_konsultasi'];
-                                            $status = "dalam proses";
-                                            $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
-                                            $result = mysqli_query($conn, $query);
-                                            echo "<script>
+                                            if (isset($_GET['terima'])) {
+                                                $id_konsultasi = $_GET['id_konsultasi'];
+                                                $status = "dalam proses";
+                                                $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
+                                                $result = mysqli_query($conn, $query);
+                                                echo "<script>
                                                 alert('Konsultasi berhasil diterima. Silahkan chat pasien Anda.');
                                                 window.location.href = window.location.href.split('?')[0];
                                               </script>";
-                                        } elseif (isset($_GET['tolak'])) {
-                                            $id_konsultasi = $_GET['id_konsultasi'];
-                                            $status = "selesai";
-                                            $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
-                                            $result = mysqli_query($conn, $query);
-                                            echo "<script>
+                                            } elseif (isset($_GET['tolak'])) {
+                                                $id_konsultasi = $_GET['id_konsultasi'];
+                                                $status = "selesai";
+                                                $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
+                                                $result = mysqli_query($conn, $query);
+                                                echo "<script>
                                                 alert('Konsultasi berhasil ditolak.');
                                                 window.location.href = window.location.href.split('?')[0];
                                               </script>";
-                                        } elseif (isset($_GET['akhiri'])) {
-                                            $id_konsultasi = $_GET['id_konsultasi'];
-                                            $status = "selesai";
-                                            $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
-                                            $result = mysqli_query($conn, $query);
-                                            echo "<script>
+                                            } elseif (isset($_GET['akhiri'])) {
+                                                $id_konsultasi = $_GET['id_konsultasi'];
+                                                $status = "selesai";
+                                                $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
+                                                $result = mysqli_query($conn, $query);
+                                                echo "<script>
                                                 alert('Konsultasi berhasil diakhiri.');
                                                 window.location.href = window.location.href.split('?')[0];
                                               </script>";
+                                            }
                                         }
-                                    }
-                                    ?>
-                                </table>
+                                        ?>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>

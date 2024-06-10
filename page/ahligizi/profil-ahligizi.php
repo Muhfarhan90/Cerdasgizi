@@ -95,7 +95,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Lengkap</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['FULLNAME_NUTRITIONIST'] ?>" />
+                            <input type="text" class="form-control" value="<?= $row['FULLNAME_NUTRITIONIST'] ?>" disabled/>
                           </div>
                         </div>
                       </div>
@@ -103,7 +103,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Email</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['EMAIL_NUTRITIONIST'] ?>" />
+                            <input type="text" class="form-control" value="<?= $row['EMAIL_NUTRITIONIST'] ?>" disabled/>
                           </div>
                         </div>
                       </div>
@@ -113,7 +113,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Lama Pengalaman</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['YEARS_OF_EXPERIENCE'] ?>" />
+                            <input type="text" class="form-control" value="<?= $row['YEARS_OF_EXPERIENCE'] ?>" disabled/>
                           </div>
                         </div>
                       </div>
@@ -121,7 +121,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Pendidikan</label>
                           <div class="col-sm-9">
-                            <input class="form-control" placeholder="cth: s1 ahligizi" value="<?= $row['EDUCATION'] ?>" />
+                            <input class="form-control" placeholder="cth: s1 ahligizi" value="<?= $row['EDUCATION'] ?>" disabled/>
                           </div>
                         </div>
                       </div>
@@ -133,7 +133,7 @@ $row = mysqli_fetch_assoc($result);
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Sertifikasi</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row['CERTIFICATION'] ?>" />
+                            <input type="text" class="form-control" value="<?= $row['CERTIFICATION'] ?>" disabled/>
                           </div>
                         </div>
                       </div>

@@ -35,6 +35,7 @@ if ($result_konsultasi->num_rows > 0) {
     $total_konsultasi[] = $row['total_konsultasi'];
   }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -211,96 +212,26 @@ if ($result_konsultasi->num_rows > 0) {
   <!-- Custom js for this page-->
   <script src="../../js/dashboard.js"></script>
   <!-- End custom js for this page-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   <!-- GRAFIKK IMT-->
   <script>
-    var tanggal = <?= json_encode($cek_bmi); ?>;
-    var hasil = <?= json_encode($hasil_bmi); ?>;
+    const tanggal = <?= json_encode($cek_bmi); ?>;
+    const hasil = <?= json_encode($hasil_bmi); ?>;
 
+    const grafik_imt = document.getElementById('grafikIMT');
 
-    const labels = tanggal;
-    const data = {
-      labels: labels,
-      datasets: [{
-        label: ['Hasil Kalkulator IMT'],
-        data: hasil,
-        fill: false,
-        borderColor: ['rgb(75, 192, 192)'],
-        tension: 0.1
-      }]
-    };
-    const config = {
+    new Chart(grafik_imt, {
       type: 'line',
-      data: data,
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          },
-          ticks: {
-            callback: function(value) {
-              if (Number.isInteger(value)) {
-                return value;
-              }
-            },
-            stepSize: 1
-          }
-
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Grafik Indeks Masa Tubuh'
-
-          }
-        }
-      }
-    };
-    const grafikImt = document.getElementById('grafikIMT').getContext('2d');
-    new Chart(grafikImt, config);
-  </script>
-
-  <!-- GRAFIK KONSULTASI -->
-  <script>
-    // const Utils = {
-    //   months: function(config) {
-    //     const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    //     const count = config.count || 12;
-    //     return months.slice(0, count);
-    //   }
-    // };
-    const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
-    const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
-    const label_konsul = bulan_konsul;
-    const data_konsul = {
-      labels: label_konsul,
-      datasets: [{
-        label: 'Total Konsultasi',
-        data: total_konsultasi,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(255, 205, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(201, 203, 207, 0.2)'
-        ],
-        borderColor: [
-          'rgb(255, 99, 132)',
-          'rgb(255, 159, 64)',
-          'rgb(255, 205, 86)',
-          'rgb(75, 192, 192)',
-          'rgb(54, 162, 235)',
-          'rgb(153, 102, 255)',
-          'rgb(201, 203, 207)'
-        ],
-        borderWidth: 1
-      }]
-    };
-    const konfig_konsul = {
-      type: 'bar',
-      data: data_konsul,
+      data: {
+        labels: tanggal,
+        datasets: [{
+          label: 'Indeks Masa Tubuh',
+          data: hasil,
+          borderWidth: 1
+        }]
+      },
       options: {
         scales: {
           y: {
@@ -311,24 +242,111 @@ if ($result_konsultasi->num_rows > 0) {
                   return value;
                 }
               },
-              stepSize: 1,
+              stepSize: 1
             }
-          },
-
-        },
-        plugins: {
-          title: {
-            display: true,
-            text: 'Total Konsultasi Yang Dilakukan',
-          },
-          legend: {
-            display: false
           }
         }
+      }
+    });
+  </script>
+
+  <!-- GRAFIK KONSULTASI -->
+  <!-- <script>
+    // const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
+    // const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
+    // const label_konsul = bulan_konsul;
+    // const data_konsul = {
+    //   labels: ['Januari','Februari'],
+    //   datasets: [{
+    //     label: 'Total Konsultasi',
+    //     data: [20,10],
+    //     backgroundColor: [
+    //       'rgba(255, 99, 132, 0.2)',
+    //       'rgba(255, 159, 64, 0.2)',
+    //       'rgba(255, 205, 86, 0.2)',
+    //       'rgba(75, 192, 192, 0.2)',
+    //       'rgba(54, 162, 235, 0.2)',
+    //       'rgba(153, 102, 255, 0.2)',
+    //       'rgba(201, 203, 207, 0.2)'
+    //     ],
+    //     borderColor: [
+    //       'rgb(255, 99, 132)',
+    //       'rgb(255, 159, 64)',
+    //       'rgb(255, 205, 86)',
+    //       'rgb(75, 192, 192)',
+    //       'rgb(54, 162, 235)',
+    //       'rgb(153, 102, 255)',
+    //       'rgb(201, 203, 207)'
+    //     ],
+    //     borderWidth: 1
+    //   }]
+    // };
+    // const konfig_konsul = {
+    //   type: 'bar',
+    //   data: data_konsul,
+    //   options: {
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true,
+    //         ticks: {
+    //           callback: function(value) {
+    //             if (Number.isInteger(value)) {
+    //               return value;
+    //             }
+    //           },
+    //           stepSize: 1,
+    //         }
+    //       },
+
+    //     },
+    //     plugins: {
+    //       title: {
+    //         display: true,
+    //         text: 'Total Konsultasi Yang Dilakukan',
+    //       },
+    //       legend: {
+    //         display: false
+    //       }
+    //     }
+    //   },
+    // };
+    // const grafik_konsultasi = document.getElementById('grafik_konsultasi').getContext('2d');
+    // new Chart(grafik_konsultasi, konfig_konsul);    
+  </script> -->
+
+  <!-- percobaan -->
+  <script>
+    const grafik_konsultasi = document.getElementById('grafik_konsultasi');
+    const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
+    const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
+    console.log(bulan_konsul);
+    console.log(total_konsultasi);
+    new Chart(grafik_konsultasi, {
+      type: 'bar',
+      data: {
+        labels: bulan_konsul,
+        datasets: [{
+          label: 'Total Konsultasi',
+          data: total_konsultasi,
+          borderWidth: 1
+        }]
       },
-    };
-    const grafik_konsultasi = document.getElementById('grafik_konsultasi').getContext('2d');
-    new Chart(grafik_konsultasi, konfig_konsul);
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: function(value) {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              },
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
   </script>
 </body>
 

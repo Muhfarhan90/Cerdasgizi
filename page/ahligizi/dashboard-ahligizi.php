@@ -146,43 +146,26 @@ if ($result_artikel->num_rows > 0) {
     <script src="../../js/todolist.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script src="js/dashboard.js"></script>
+    <script src="../../js/dashboard.js"></script>
     <!-- End custom js for this page-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- grafik -->
     <script>
       const bulan = <?= json_encode($bulan_konsul) ?>;
       const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
-      const labels = bulan;
-      const data = {
-        labels: labels,
-        datasets: [{
-          label: 'Total Konsultasi',
-          data: total_konsultasi,
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
-        }]
-      };
-      const config = {
+      const grafik_konsul = document.getElementById('grafik_konsul').getContext('2d');
+      new Chart(grafik_konsul, {
         type: 'bar',
-        data: data,
+        data: {
+          labels: bulan,
+          datasets: [{
+            label: 'Total Konsultasi',
+            data: total_konsultasi,
+            borderWidth: 1,
+            backgroundColor: ['#365E32', '#81A263', '#E7D37F', '#FD9B63']
+          }]
+        },
         options: {
           scales: {
             y: {
@@ -195,7 +178,7 @@ if ($result_artikel->num_rows > 0) {
                 },
                 stepSize: 1,
               }
-            },
+            }
           },
           plugins: {
             title: {
@@ -206,48 +189,26 @@ if ($result_artikel->num_rows > 0) {
               display: false
             }
           }
-
-        },
-      };
-      const grafik_konsul = document.getElementById('grafik_konsul').getContext('2d');
-      new Chart(grafik_konsul, config);
+        }
+      });
     </script>
     <!-- grafik artikel -->
     <script>
+      const grafik_artikel = document.getElementById('grafik_artikel').getContext('2d');
+
       const tanggal = <?= json_encode($tanggal_publish) ?>;
       const total_artikel = <?= json_encode($total_artikel) ?>;
-      const labels2 = bulan;
-      const data2 = {
-        labels: labels2,
-        datasets: [{
-          label: 'Total Artikel',
-          data: total_artikel,
-          backgroundColor: [
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)',
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-
-          ],
-          borderColor: [
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)',
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-
-          ],
-          borderWidth: 1
-        }]
-      };
-      const config2 = {
+      new Chart(grafik_artikel, {
         type: 'bar',
-        data: data2,
+        data: {
+          labels: tanggal,
+          datasets: [{
+            label: 'Total Artikel',
+            data: total_artikel,
+            borderWidth: 1,
+            backgroundColor: ['#050C9C', '#3572EF', '#3ABEF9', '#A7E6FF']
+          }]
+        },
         options: {
           scales: {
             y: {
@@ -260,22 +221,19 @@ if ($result_artikel->num_rows > 0) {
                 },
                 stepSize: 1,
               }
-            },
+            }
           },
           plugins: {
             title: {
               display: true,
-              text: 'Total Konsultasi Yang Dilakukan'
+              text: 'Total Artikel Yang Dibuat'
             },
             legend: {
               display: false
             }
           }
-
-        },
-      };
-      const grafik_artikel = document.getElementById('grafik_artikel').getContext('2d');
-      new Chart(grafik_artikel, config2);
+        }
+      });
     </script>
 </body>
 
