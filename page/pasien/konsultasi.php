@@ -112,70 +112,36 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                     }
                   }
                   ?>
-                  <!-- <table class="table">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama Pasien</th>
-                      <th>Nama Ahligizi</th>
-                      <th>Tanggal Konsultasi</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
+
+
                   <?php
                   $id_pasien = $row_pasien['ID_PATIENT'];
-                  $status = "sedang menunggu";
-                  // select 3 tabel
-                  $query2 = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION FROM consultation
-                  INNER JOIN patient ON consultation.id_patient = patient.id_patient
-                  INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
-                  WHERE consultation.id_patient = $id_pasien AND consultation.STATUS_CONSULTATION = '$status'";
-                  $result2 = mysqli_query($conn, $query2);
-                  if (mysqli_num_rows($result2) > 0) {
-                    while ($row2 = mysqli_fetch_assoc($result2)) {
-                  ?>
-                      <tbody>
-                        <tr>
-                          <td><?= $no ?></td>
-                          <td><?= $row2['fullname_patient'] ?></td>
-                          <td><?= $row2['fullname_nutritionist'] ?></td>
-                          <td><?= $row2['DATE_CONSULTATION'] ?></td>
-                          <td><label class="badge badge-warning"><?= $row2['STATUS_CONSULTATION'] ?></label></td>
-                        </tr>
-                      </tbody>
-                  <?php
-                      $no++;
-                    }
-                  } else {
-                    echo "Anda belum mengajukan konsultasi apapun, silahkan pilih ahligizi pada menu ahligizi untuk mengajukan konsultasi gizi anda";
-                  }
-                  ?>
-                </table> -->
-                  <table class="table table-striped project-orders-table">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Nama Pasien</th>
-                        <th>Nama Ahli Gizi</th>
-                        <th>Tanggal Konsultasi</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <?php
-                    $id_pasien = $row_pasien['ID_PATIENT'];
-                    $statuses = ["sedang menunggu", "dalam proses", "selesai"];
-                    $query2 = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION 
+                  $statuses = ["sedang menunggu", "dalam proses", "selesai"];
+                  $query2 = "SELECT consultation.id_consultation, patient.fullname_patient, nutritionist.fullname_nutritionist, consultation.DATE_CONSULTATION, consultation.STATUS_CONSULTATION 
                   FROM consultation
                   INNER JOIN patient ON consultation.id_patient = patient.id_patient
                   INNER JOIN nutritionist ON consultation.id_nutritionist = nutritionist.id_nutritionist
                   WHERE consultation.id_patient = $id_pasien 
                   AND consultation.STATUS_CONSULTATION IN ('" . implode("','", $statuses) . "')";
-                    $result2 = mysqli_query($conn, $query2);
-                    if (mysqli_num_rows($result2) > 0) {
-                      $no = 1;
+                  $result2 = mysqli_query($conn, $query2);
+                  if (mysqli_num_rows($result2) > 0) {
+                    $no = 1;
+                  ?>
+                    <table class="table table-striped project-orders-table">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Nama Pasien</th>
+                          <th>Nama Ahli Gizi</th>
+                          <th>Tanggal Konsultasi</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <?php
                       while ($row2 = mysqli_fetch_assoc($result2)) {
-                    ?>
+                      ?>
+
                         <tbody>
                           <tr>
                             <td><?= $no ?></td>
@@ -206,12 +172,25 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
                             </td>
                           </tr>
                         </tbody>
-                    <?php
+                      <?php
                         $no++;
                       }
+                    } else {
+                      ?>
+
+                      <div class="col-xl-12 grid-margin stretch-card flex-column">
+                        <h5>Anda belum mengajukan konsultasi apapun, silahkan pilih ahligizi pada menu ahligizi untuk mengajukan konsultasi gizi anda</h5>
+                        <a class="nav-link" href="artikel.php">
+                          <i class="mdi mdi-file-document menu-icon"></i>
+                          <span class="menu-title">Pilih Ahligizi</span>
+                          <!-- <div class="badge badge-danger">new</div> -->
+                        </a>
+                      </div>
+                    <?php
+                      // echo "Anda belum mengajukan konsultasi apapun, silahkan pilih ahligizi pada menu ahligizi untuk mengajukan konsultasi gizi anda";
                     }
                     ?>
-                  </table>
+                    </table>
                 </div>
               </div>
             </div>

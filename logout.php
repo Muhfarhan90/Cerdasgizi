@@ -5,7 +5,7 @@ if (isset($_POST["logout"])) {
   session_unset();
   session_destroy();
   echo "<script>
-  document.location.href = '../../index.php';
+  window.location.href = '../../index.php';
   </script>";
   // header("Location: http://localhost/cerdasgizi.com/index.php");
   exit();

@@ -21,13 +21,14 @@ if (isset($_POST['simpan'])) {
   if ($row > 0) {
     echo "<script>
       alert('Data berhasil diubah...');
+      document.location.href = 'profil-pasien.php'
     </script>";
-    header("location: profil-pasien.php");
   } else {
     echo "<script>
     alert('Data gagal diubah...');
-  </script>";
-    header("location: profil-pasien.php");
+      document.location.href = 'profil-pasien.php'
+
+    </script>";
   }
 }
 
@@ -88,7 +89,7 @@ if (isset($_POST['simpan'])) {
           </div>
         </div>
       </div>
-     
+
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <?php
@@ -149,7 +150,7 @@ if (isset($_POST['simpan'])) {
             </div>
           </div>
 
-         
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

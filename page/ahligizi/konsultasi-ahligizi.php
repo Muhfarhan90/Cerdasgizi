@@ -89,22 +89,25 @@ include('../../database/database.php');
                                     $result3 = mysqli_query($conn, $query);
                                     $no = 1;
                                     ?>
-                                    <table class="table table-striped project-orders-table">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama Pasien</th>
-                                                <th>Nama Ahli Gizi</th>
-                                                <th>Tanggal Konsultasi</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <?php
-                                        if (mysqli_num_rows($result3) > 0) {
+
+                                    <?php
+                                    if (mysqli_num_rows($result3) > 0) {
+                                    ?>
+                                        <table class="table table-striped project-orders-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Pasien</th>
+                                                    <th>Nama Ahli Gizi</th>
+                                                    <th>Tanggal Konsultasi</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <?php
                                             while ($Row = mysqli_fetch_assoc($result3)) {
                                                 $id_konsultasi = $Row['id_consultation'];
-                                        ?>
+                                            ?>
                                                 <tbody>
                                                     <tr>
                                                         <td><?= $no ?></td>
@@ -150,7 +153,7 @@ include('../../database/database.php');
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                        <?php
+                                            <?php
                                                 $no++;
                                             }
 
@@ -182,9 +185,15 @@ include('../../database/database.php');
                                                 window.location.href = window.location.href.split('?')[0];
                                               </script>";
                                             }
-                                        }
-                                        ?>
-                                    </table>
+                                        } else {
+                                            ?>
+                                            <div class="col-xl-12 grid-margin stretch-card flex-column">
+                                                <h5>Belum ada pasien yang konsultasi ke anda</h5>
+                                               
+                                            </div> <?php
+                                                }
+                                                    ?>
+                                        </table>
                                 </div>
 
                             </div>
