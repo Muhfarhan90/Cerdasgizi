@@ -87,7 +87,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                         <?php if ($row_chat['id_role'] == 2) : ?>
                                             <!-- Pesan dari pasien -->
                                             <li class="d-flex justify-content-end mb-4">
-                                                <div class="card w-100 message-right">
+                                                <div class="card w-100 message-right bg-info text-light">
                                                     <div class="card-header d-flex justify-content-between p-3">
                                                         <div class="d-flex align-items-center">
                                                             <img src="../../images/icons8-doctor-32.png" alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60">
@@ -104,7 +104,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                             </li>
                                         <?php elseif ($row_chat['id_role'] == 3) : ?>
                                             <!-- Pesan dari ahli gizi -->
-                                            <li class="d-flex justify-content-start mb-4">
+                                            <li class="d-flex justify-content-start mb-4 ">
                                                 <div class="card message-left">
                                                     <div class="card-header d-flex justify-content-between p-3">
                                                         <div class="d-flex align-items-center">
@@ -134,7 +134,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                                 <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat" required></textarea>
                                             </div>
                                             <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
-                                            <button type="submit" class="btn btn-info btn-rounded float-end mt-2" name="kirim">Send</button>
+                                            <button type="submit" class="btn btn-info btn-rounded float-end mt-2" name="kirim">Kirim</button>
                                         </form>
                                     </div>
                                 </div>

@@ -180,7 +180,7 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
 
                       <div class="col-xl-12 grid-margin stretch-card flex-column">
                         <h5>Anda belum mengajukan konsultasi apapun, silahkan pilih ahligizi pada menu ahligizi untuk mengajukan konsultasi gizi anda</h5>
-                        <a class="nav-link" href="artikel.php">
+                        <a class="nav-link" href="daftar-ahligizi.php">
                           <i class="mdi mdi-file-document menu-icon"></i>
                           <span class="menu-title">Pilih Ahligizi</span>
                           <!-- <div class="badge badge-danger">new</div> -->
