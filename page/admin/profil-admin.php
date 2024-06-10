@@ -81,7 +81,7 @@ include('sidebar-admin.php');
                           <label class="col-sm-3 col-form-label">Username</label>
                           <div class="col-sm-9">
 
-                            <input type="text" class="form-control" value="<?= $row["USERNAME_USER"] ?>" />
+                            <input type="text" class="form-control" value="<?= $row["USERNAME_USER"] ?>" disabled />
                           </div>
                         </div>
                       </div>
@@ -89,7 +89,7 @@ include('sidebar-admin.php');
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Password</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" value="<?= $row["PASSWORD_USER"] ?>" />
+                            <input type="text" class="form-control" value="<?= $row["PASSWORD_USER"] ?>" disabled/>
                           </div>
                         </div>
                       </div>

@@ -249,72 +249,7 @@ if ($result_konsultasi->num_rows > 0) {
       }
     });
   </script>
-
-  <!-- GRAFIK KONSULTASI -->
-  <!-- <script>
-    // const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
-    // const total_konsultasi = <?= json_encode($total_konsultasi) ?>;
-    // const label_konsul = bulan_konsul;
-    // const data_konsul = {
-    //   labels: ['Januari','Februari'],
-    //   datasets: [{
-    //     label: 'Total Konsultasi',
-    //     data: [20,10],
-    //     backgroundColor: [
-    //       'rgba(255, 99, 132, 0.2)',
-    //       'rgba(255, 159, 64, 0.2)',
-    //       'rgba(255, 205, 86, 0.2)',
-    //       'rgba(75, 192, 192, 0.2)',
-    //       'rgba(54, 162, 235, 0.2)',
-    //       'rgba(153, 102, 255, 0.2)',
-    //       'rgba(201, 203, 207, 0.2)'
-    //     ],
-    //     borderColor: [
-    //       'rgb(255, 99, 132)',
-    //       'rgb(255, 159, 64)',
-    //       'rgb(255, 205, 86)',
-    //       'rgb(75, 192, 192)',
-    //       'rgb(54, 162, 235)',
-    //       'rgb(153, 102, 255)',
-    //       'rgb(201, 203, 207)'
-    //     ],
-    //     borderWidth: 1
-    //   }]
-    // };
-    // const konfig_konsul = {
-    //   type: 'bar',
-    //   data: data_konsul,
-    //   options: {
-    //     scales: {
-    //       y: {
-    //         beginAtZero: true,
-    //         ticks: {
-    //           callback: function(value) {
-    //             if (Number.isInteger(value)) {
-    //               return value;
-    //             }
-    //           },
-    //           stepSize: 1,
-    //         }
-    //       },
-
-    //     },
-    //     plugins: {
-    //       title: {
-    //         display: true,
-    //         text: 'Total Konsultasi Yang Dilakukan',
-    //       },
-    //       legend: {
-    //         display: false
-    //       }
-    //     }
-    //   },
-    // };
-    // const grafik_konsultasi = document.getElementById('grafik_konsultasi').getContext('2d');
-    // new Chart(grafik_konsultasi, konfig_konsul);    
-  </script> -->
-
-  <!-- percobaan -->
+  <!-- Grafik Konsultasi Yang DIlakukan -->
   <script>
     const grafik_konsultasi = document.getElementById('grafik_konsultasi');
     const bulan_konsul = <?= json_encode($bulan_konsul) ?>;
@@ -328,7 +263,8 @@ if ($result_konsultasi->num_rows > 0) {
         datasets: [{
           label: 'Total Konsultasi',
           data: total_konsultasi,
-          borderWidth: 1
+          borderWidth: 1,
+          backgroundColor: ['#059212','#06D001','#9BEC00','#F3FF90']
         }]
       },
       options: {
@@ -343,6 +279,15 @@ if ($result_konsultasi->num_rows > 0) {
               },
               stepSize: 1
             }
+          }
+        },
+        plugins : {
+          title: {
+            display: true,
+            text: 'Total Konsultasi Yang Dilakukan'
+          }, 
+          legend: {
+            display: false
           }
         }
       }

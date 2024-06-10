@@ -495,18 +495,11 @@ if ($result_komen->num_rows > 0) {
           label: 'Total',
           data: jumlahKonsulData,
           backgroundColor: [
-            'red',
-            'blue',
-            'yellow',
-            'green',
-            'purple'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+            '#FEFFD2',
+            '#FFEEA9',
+            '#FFBF78',
+            '#FF7D29',
+            '#FFDB00'
           ],
           borderWidth: 1,
 
@@ -630,18 +623,11 @@ if ($result_komen->num_rows > 0) {
           label: 'Total',
           data: jumlah_artikel,
           backgroundColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
+            '#850F8D',
+            '#C738BD',
+            '#E49BFF',
+            '#F8F9D7',
+            '#FFDE95'
           ],
           borderWidth: 1,
 
@@ -652,7 +638,7 @@ if ($result_komen->num_rows > 0) {
         plugins: {
           title: {
             display: true,
-            text: 'Jumlah Artikel Ahligizi'
+            text: 'Jumlah Artikel Yang Dibuat Ahligizi'
           },
           legend: {
             display: false
@@ -692,7 +678,7 @@ if ($result_komen->num_rows > 0) {
     const data = {
       labels: months,
       datasets: [{
-        label: 'Total Konsultasi',
+        label: 'Jumlah Konsultasi',
         data: totalKonsultasi,
         fill: false,
         borderColor: 'rgb(75, 192, 192)',
@@ -716,6 +702,12 @@ if ($result_komen->num_rows > 0) {
             }
           }
         },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Jumlah Konsultasi'
+          },
+        }
       }
     };
     const ctx5 = document.getElementById('myChart5').getContext('2d');
@@ -773,13 +765,17 @@ if ($result_komen->num_rows > 0) {
             }
           }
         },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Total Artikel Dengan Komen Terbanyak'
+          },
+        },
+
         indexAxis: 'y',
 
       },
-      title: {
-        display: true,
-        text: 'Total Artikel Komen Terbanyak'
-      }
+
 
     };
     const ctx6 = document.getElementById('myChart6').getContext('2d');

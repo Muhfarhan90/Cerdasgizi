@@ -131,7 +131,7 @@ $result_chat = mysqli_query($conn, $query_chat);
                                     <div class="col-12 col-md-10 col-lg-8 col-xl-6">
                                         <form action="" method="POST" class="chat-input fixed-bottom">
                                             <div class="form-outline">
-                                                <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat"></textarea>
+                                                <textarea class="form-control" id="textAreaExample2" rows="2" name="isichat" required></textarea>
                                             </div>
                                             <input type="hidden" name="id_konsultasi" value="<?= $id_konsultasi ?>">
                                             <button type="submit" class="btn btn-info btn-rounded float-end mt-2" name="kirim">Send</button>
