@@ -113,34 +113,45 @@ $tanggal = date('Y-m-d H:i:s');
                         </div>
                     </div>
                     <!-- artikel yang dibuat -->
-                    <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
-                    <h2>Top Artikel dari <?= $row['FULLNAME_NUTRITIONIST']?></h2>    
-                    </div>
-                    </div>
-                    <div class="row">
-                        <?php
-                        $query = "SELECT * FROM article WHERE id_nutritionist = $id";
-                        $result = mysqli_query($conn, $query);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $content = $row['CONTENT_ARTICLE'];
-                            $excerpt = substr($content, 0, 100) . "...";
-                        ?>
+                    <?php
+                    $query = "SELECT * FROM article WHERE id_nutritionist = $id";
+                    $result = mysqli_query($conn, $query);
+                    if (mysqli_num_rows($result) > 0) {
+
+                    ?>
+                        <div class="row">
                             <div class="col-md-12 grid-margin stretch-card">
-                                <div class="card" style="width: 18rem;">
-                                    <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= $row['TITLE'] ?></h5>
-                                        <p class="card-text"><?= $excerpt ?></p>
-                                        <a href="detail-artikel.php?id=<?= $row['ID_ARTICLE'] ?>" class="btn btn-primary">Lihat Selengkapnya</a>
+                                <h2>Top Artikel dari <?= $row['FULLNAME_NUTRITIONIST'] ?></h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <?php
+
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $content = $row['CONTENT_ARTICLE'];
+                                $excerpt = substr($content, 0, 100) . "...";
+                            ?>
+                                <div class="col-md-12 grid-margin stretch-card">
+                                    <div class="card" style="width: 18rem;">
+                                        <img src="../../images/article/<?= $row['IMAGE_ARTICLE'] ?>" class="card-img-top pl-4 pt-4 w-25" alt="gambar-artikel" name="gambar">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><?= $row['TITLE'] ?></h5>
+                                            <p class="card-text"><?= $excerpt ?></p>
+                                            <a href="detail-artikel.php?id=<?= $row['ID_ARTICLE'] ?>" class="btn btn-primary">Lihat Selengkapnya</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php
-                        }
-                        ?>
+                            <?php
+                            }
+                            ?>
 
-                    </div>
+                        </div>
+                    <?php
+                    } else {
+                        
+                    }
+                    ?>
+
 
 
 
