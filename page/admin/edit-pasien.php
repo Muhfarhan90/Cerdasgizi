@@ -136,7 +136,7 @@ if (isset($_POST['simpan'])) {
                       <input type="text" class="form-control" id="exampleInputCity1" placeholder="Location" value="<?= $row['WEIGHT'] ?>" name="berat">
                     </div>
                     <button type="submit" class="btn btn-primary mr-2" name="simpan">Simpan</button>
-                    <button class="btn btn-light">Cancel</button>
+                    <a class="btn btn-light" href="pasien.php">Cancel</a>
                   </form>
                 </div>
               </div>

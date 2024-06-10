@@ -14,7 +14,7 @@ $id_konsultasi = $_GET['id_consultation'];
 $query_konsul = "SELECT * FROM `consultation` WHERE `id_consultation` = '$id_konsultasi'";
 $result_konsul = mysqli_query($conn, $query_konsul);
 $row_konsul = mysqli_fetch_assoc($result_konsul);
-$id_ahligizi = $row_konsul['id_nutritionist'];
+$id_ahligizi = $row_konsul['ID_NUTRITIONIST'];
 $id_pasien = $row_konsul['ID_PATIENT'];
 
 // Jika formulir dikirim
