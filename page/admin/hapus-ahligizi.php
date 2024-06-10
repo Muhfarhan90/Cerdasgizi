@@ -4,36 +4,24 @@ include("../../database/database.php");
 $id = $_GET['id'];
 $id_user = $_GET['id_user'];
 
-// Menghapus data dari tabel consultation terlebih dahulu jika tidak menggunakan ON DELETE CASCADE
-$query1 = "DELETE FROM `consultation` WHERE `id_nutritionist` = '$id'";
-$result1 = mysqli_query($conn, $query1);
 
-if (!$result1) {
-    echo "Error deleting consultations: " . mysqli_error($conn);
-    exit;
-}
+try {
+    $query6 = "DELETE FROM `chat` WHERE `id_user` = '$id_user'";
+    $result6 = mysqli_query($conn, $query6);
+    $query4 = "DELETE FROM `article` WHERE `id_nutritionist` = '$id'";
+    $result4 = mysqli_query($conn, $query6);    
+    $query3 = "DELETE FROM `consultation` WHERE `id_nutritionist` = '$id'";
+    $result3 = mysqli_query($conn, $query3);
+    $query = "DELETE FROM `user` WHERE `id_user` = '$id_user'";
+    $result = mysqli_query($conn, $query);
+    $query2 = "DELETE FROM `nutritionist` WHERE `id_nutritionist` = '$id'";
+    $result2 = mysqli_query($conn, $query2);
+    $row = mysqli_affected_rows($conn);
 
-// Menghapus data dari tabel nutritionist
-$query2 = "DELETE FROM `nutritionist` WHERE `id_nutritionist` = '$id'";
-$result2 = mysqli_query($conn, $query2);
-
-if (!$result2) {
-    echo "Error deleting nutritionist: " . mysqli_error($conn);
-    exit;
-}
-
-// Menghapus data dari tabel user
-$query3 = "DELETE FROM `user` WHERE `id_user` = '$id_user'";
-$result3 = mysqli_query($conn, $query3);
-
-if ($result3) {
     echo "<script>
-    alert('Data ahli gizi berhasil dihapus...');
+    alert('Data ahligizi berhasil dihapus...');
     window.location.href = 'ahligizi.php';
     </script>";
-} else {
-    echo "<script>
-    alert('Data ahli gizi gagal dihapus...');
-    window.location.href = 'ahligizi.php';
-    </script>";
+} catch (mysqli_sql_exception $e) {
+    echo "Error: " . $e->getMessage();
 }
