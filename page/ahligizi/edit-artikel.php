@@ -37,11 +37,13 @@ if (isset($_POST['simpan'])) {
     $result2 = mysqli_query($conn, $query2);
     $row_affected = mysqli_affected_rows($conn);
     if ($row_affected > 0) {
-        echo "<script>alert('Data berhasil diubah...');</script>";
-        header("location: artikel-ahligizi.php");
+        echo "<script>alert('Data berhasil diubah...');
+        document.location.href = 'artikel-ahligizi.php'
+        </script>";
     } else {
-        echo "<script>alert('Data gagal diubah...');</script>";
-        header("location: artikel-ahligizi.php");
+        echo "<script>alert('Data gagal diubah...');
+        document.location.href = 'artikel-ahligizi.php'
+        </script>";
     }
 }
 

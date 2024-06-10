@@ -32,11 +32,18 @@ if (isset($_POST['tambah-ahligizi'])) {
         $result = mysqli_query($conn, $query1);
         $result2 = mysqli_query($conn, $query2);
         $row = mysqli_affected_rows($conn);
+        $row = mysqli_affected_rows($conn);
         if ($row) {
-            echo "data berhasil ditambah";
-            header("location: ahligizi.php");
+            echo "<script>
+                alert('Data berhasil ditambahkan...');
+                document.location.href = 'ahligizi.php';
+            </script>";
         } else {
-            echo "data gagal";
+            echo "<script>
+            alert('Data gagal ditambahkan...');
+            ocument.location.href = 'ahligizi.php';
+
+        </script>";
         }
     } catch(mysqli_sql_exception) {
         echo "<script>

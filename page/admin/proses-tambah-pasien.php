@@ -48,13 +48,14 @@ if (isset($_POST['tambah-pasien'])) {
         if ($row) {
             echo "<script>
                 alert('Data berhasil ditambahkan...');
+                document.location.href = 'pasien.php';
             </script>";
-            header("location: pasien.php");
         } else {
             echo "<script>
             alert('Data gagal ditambahkan...');
+            ocument.location.href = 'pasien.php';
+
         </script>";
-            header("location: pasien.php");
         }
     } catch (mysqli_sql_exception) {
         echo "<script>

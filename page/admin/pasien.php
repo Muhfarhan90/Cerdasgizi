@@ -155,7 +155,7 @@ include("../../database/database.php");
                                     Edit
                                     <i class="typcn typcn-edit btn-icon-append"></i>
                                   </button></a>
-                                <a href="hapus-pasien.php?id=<?= $row['ID_PATIENT'] ?>& id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');" class="btn btn-icon-text"><button type="submit" class="btn btn-danger btn-sm btn-icon-text" name="hapus-pasien">
+                                <a href="hapus-pasien.php?id=<?= $row['ID_PATIENT'] ?>&id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');" class="btn btn-icon-text"><button type="submit" class="btn btn-danger btn-sm btn-icon-text" name="hapus-pasien">
                                     Delete
                                     <i class="typcn typcn-delete-outline btn-icon-append"></i>
                                   </button></a>

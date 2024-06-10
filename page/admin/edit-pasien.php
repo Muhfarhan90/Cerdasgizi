@@ -18,16 +18,17 @@ if (isset($_POST['simpan'])) {
   $query2 = "UPDATE `patient` SET `email_patient` = '$email', `fullname_patient` = '$nama', `date_of_birth` = '$tgl_lahir', `gender` = '$gender', `height` = '$tinggi', `weight` = '$berat' WHERE `id_patient` = $id";
   $result2 = mysqli_query($conn, $query2);
   $row = mysqli_affected_rows($conn);
-  if ($row > 0) {
+  if ($row) {
     echo "<script>
-      alert('Data berhasil diubah...');
-    </script>";
-    header("location: pasien.php");
+                alert('Data berhasil diedit...');
+                document.location.href = 'pasien.php';
+            </script>";
   } else {
     echo "<script>
-    alert('Data gagal diubah...');
-  </script>";
-    header("location: pasien.php");
+            alert('Data gagal diedit...');
+            ocument.location.href = 'pasien.php';
+
+        </script>";
   }
 }
 
@@ -86,7 +87,7 @@ if (isset($_POST['simpan'])) {
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <?php
-include('sidebar-admin.php');
+      include('sidebar-admin.php');
       ?>
       <!-- partial -->
       <div class="main-panel">
@@ -142,7 +143,7 @@ include('sidebar-admin.php');
             </div>
           </div>
 
-         
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

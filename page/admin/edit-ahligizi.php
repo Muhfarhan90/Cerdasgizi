@@ -17,16 +17,17 @@ if (isset($_POST['simpan'])) {
   $query2 = "UPDATE `nutritionist` SET `email_nutritionist` = '$email', `fullname_nutritionist` = '$nama', `years_of_experience` = '$pengalaman', `education` = '$edukasi', `certification` = '$sertifikasi' WHERE `id_nutritionist` = $id";
   $result2 = mysqli_query($conn, $query2);
   $row = mysqli_affected_rows($conn);
-  if ($row > 0) {
+  if ($row) {
     echo "<script>
-      alert('Data berhasil diubah...');
-    </script>";
-    header("location: ahligizi.php");
+                alert('Data berhasil diedit...');
+                document.location.href = 'ahligizi.php';
+            </script>";
   } else {
     echo "<script>
-    alert('Data gagal diubah...');
-  </script>";
-    header("location: ahligizi.php");
+            alert('Data gagal diedit...');
+            ocument.location.href = 'ahligizi.php';
+
+        </script>";
   }
 }
 
@@ -53,9 +54,9 @@ if (isset($_POST['simpan'])) {
 
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-   <?php
-include('navbar-admin.php');
-   ?>
+    <?php
+    include('navbar-admin.php');
+    ?>
     <!-- partial -->
 
     <div class="container-fluid page-body-wrapper">
@@ -82,11 +83,11 @@ include('navbar-admin.php');
           </div>
         </div>
       </div>
-    
+
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
       <?php
-include('sidebar-admin.php');
+      include('sidebar-admin.php');
       ?>
       <!-- partial -->
       <div class="main-panel">
@@ -115,7 +116,7 @@ include('sidebar-admin.php');
                       <label for="exampleInputEmail3">Email</label>
                       <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email" value="<?= $row['EMAIL_NUTRITIONIST'] ?>" name="email">
                     </div>
-                   
+
                     <div class="form-group">
                       <label for="exampleInputCity1">Tahun Pengalaman</label>
                       <input type="number" class="form-control" id="exampleInputCity1" placeholder="tahun" value="<?= $row['YEARS_OF_EXPERIENCE'] ?>" name="pengalaman">
@@ -136,7 +137,7 @@ include('sidebar-admin.php');
             </div>
           </div>
 
-          
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
