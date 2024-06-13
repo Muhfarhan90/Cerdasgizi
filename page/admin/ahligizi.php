@@ -169,7 +169,7 @@ include("../../database/database.php");
                               </div>
                             </td>
                           </tr>
-                        <?php
+                          <?php
                           $i++;
                         }
                       } else {
@@ -177,48 +177,57 @@ include("../../database/database.php");
                         $query = "SELECT * FROM nutritionist WHERE `FULLNAME_NUTRITIONIST` LIKE '%$keyword%'";
                         $result = mysqli_query($conn, $query);
                         $i = 1;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                          <tr>
-                            <td><?= $i ?></td>
-                            <td><?= $row['FULLNAME_NUTRITIONIST'] ?></td>
-                            <td><?= $row['EMAIL_NUTRITIONIST'] ?></td>
-                            <td><?= $row['YEARS_OF_EXPERIENCE'] ?></td>
-                            <td><?= $row['EDUCATION'] ?></td>
-                            <td><?= $row['CERTIFICATION'] ?></td>
-                            <td>
-                              <img src="../../images/icons8-doctor-32.png" alt="profil">
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a href="edit-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>"> <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
-                                    Edit
-                                    <i class="typcn typcn-edit btn-icon-append"></i>
-                                  </button></a>
-                                <a href="hapus-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>&id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah anda yakin menghapus data ahli gizi?')"> <button type="button" class="btn btn-danger btn-sm btn-icon-text">
-                                    Delete
-                                    <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                                  </button></a>
+                        if (mysqli_num_rows($result) > 0) {
 
-                              </div>
-                            </td>
-                          </tr>
+                          while ($row = mysqli_fetch_assoc($result)) {
+                          ?>
+                            <tr>
+                              <td><?= $i ?></td>
+                              <td><?= $row['FULLNAME_NUTRITIONIST'] ?></td>
+                              <td><?= $row['EMAIL_NUTRITIONIST'] ?></td>
+                              <td><?= $row['YEARS_OF_EXPERIENCE'] ?></td>
+                              <td><?= $row['EDUCATION'] ?></td>
+                              <td><?= $row['CERTIFICATION'] ?></td>
+                              <td>
+                                <img src="../../images/icons8-doctor-32.png" alt="profil">
+                              </td>
+                              <td>
+                                <div class="d-flex align-items-center">
+                                  <a href="edit-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>"> <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                                      Edit
+                                      <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></a>
+                                  <a href="hapus-ahligizi.php?id=<?= $row['ID_NUTRITIONIST'] ?>&id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah anda yakin menghapus data ahli gizi?')"> <button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                                      Delete
+                                      <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                                    </button></a>
+
+                                </div>
+                              </td>
+                            </tr>
+                          <?php
+                            $i++;
+                          }
+                        } else {
+                          ?>
+                          <div class="text text-warning">
+                            Tidak ada data yang ditemukan
+                          </div>
                       <?php
-                          $i++;
                         }
                       }
 
 
                       ?>
 
-                  
+
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-         
+
           <!-- partial -->
         </div>
         <!-- main-panel ends -->

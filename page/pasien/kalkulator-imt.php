@@ -135,11 +135,11 @@ if (isset($_POST['hitung'])) {
                     <div class="form-group"></div>
                     <div class="form-group">
                       <label for="exampleInputEmail3">Hasil Nilai IMT</label>
-                      <input type="number" class="form-control" id="exampleInputEmail3" placeholder="hasil" name="hasil" value="<?= $hasil ?>">
+                      <input type="number" class="form-control" id="exampleInputEmail3" placeholder="hasil" name="hasil" value="<?= $hasil ?>" >
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail3">Kategori</label>
-                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="kategori" value="<?= $kategori ?>">
+                      <input type="text" class="form-control" id="exampleInputEmail3" placeholder="kategori" value="<?= $kategori ?>" >
                     </div>
                   </form>
                 </div>

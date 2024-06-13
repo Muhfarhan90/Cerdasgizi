@@ -30,37 +30,37 @@ include("../../database/database.php");
     <!-- partial -->
     <!-- Fitur Search -->
     <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
-        <div class="navbar-links-wrapper d-flex align-items-stretch">
-            <!-- Optional links here -->
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-            <ul class="navbar-nav navbar-nav-right">
-                <li class="nav-item nav-search d-block d-md-none w-100"> <!-- Mobile View -->
-                    <form action="" method="POST" class="w-100">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" id="search" type="submit" name="cari">
-                                    <i class="typcn typcn-zoom"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="nav-item nav-search d-none d-md-block mr-0"> <!-- Desktop View -->
-                    <form action="" method="POST">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" id="search" type="submit" name="cari">
-                                    <i class="typcn typcn-zoom"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-            </ul>
-        </div>
+      <div class="navbar-links-wrapper d-flex align-items-stretch">
+        <!-- Optional links here -->
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-search d-block d-md-none w-100"> <!-- Mobile View -->
+            <form action="" method="POST" class="w-100">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
+                <div class="input-group-prepend">
+                  <button class="input-group-text" id="search" type="submit" name="cari">
+                    <i class="typcn typcn-zoom"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+          <li class="nav-item nav-search d-none d-md-block mr-0"> <!-- Desktop View -->
+            <form action="" method="POST">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..." aria-label="search" aria-describedby="search" name="katakunci">
+                <div class="input-group-prepend">
+                  <button class="input-group-text" id="search" type="submit" name="cari">
+                    <i class="typcn typcn-zoom"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </li>
+        </ul>
+      </div>
     </nav>
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
@@ -138,6 +138,7 @@ include("../../database/database.php");
                         $query = "SELECT * FROM patient";
                         $result = mysqli_query($conn, $query);
                         $i = 1;
+
                         while ($row = mysqli_fetch_assoc($result)) {
                       ?>
                           <tr>
@@ -163,41 +164,50 @@ include("../../database/database.php");
                               </div>
                             </td>
                           </tr>
-                        <?php
+                          <?php
                           $i++;
                         }
                       } else {
+
                         $keyword = $_POST['katakunci'];
                         $query = "SELECT * FROM patient WHERE fullname_patient LIKE '%$keyword%'";
                         $result = mysqli_query($conn, $query);
                         $i = 1;
-                        while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
-                          <tr>
-                            <td><?= $i ?></td>
-                            <td><?= $row['FULLNAME_PATIENT'] ?></td>
-                            <td><?= $row['EMAIL_PATIENT'] ?></td>
-                            <td><?= $row['DATE_OF_BIRTH'] ?></td>
-                            <td><?= $row['GENDER'] ?></td>
-                            <td><?= $row['HEIGHT'] ?></td>
-                            <td><?= $row['WEIGHT'] ?></td>
-                            <td><img src="../../images/icons8-user-32.png"></td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <a href="edit-pasien.php?id=<?= $row['ID_PATIENT'] ?>"><button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
-                                    Edit
-                                    <i class="typcn typcn-edit btn-icon-append"></i>
-                                  </button></a>
-                                <a href="hapus-pasien.php?id=<?= $row['ID_PATIENT'] ?>& id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');" class="btn btn-icon-text"><button type="submit" class="btn btn-danger btn-sm btn-icon-text" name="hapus-pasien">
-                                    Delete
-                                    <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                                  </button></a>
+                        if (mysqli_num_rows($result) > 0) {
+                          while ($row = mysqli_fetch_assoc($result)) {
+                          ?>
+                            <tr>
+                              <td><?= $i ?></td>
+                              <td><?= $row['FULLNAME_PATIENT'] ?></td>
+                              <td><?= $row['EMAIL_PATIENT'] ?></td>
+                              <td><?= $row['DATE_OF_BIRTH'] ?></td>
+                              <td><?= $row['GENDER'] ?></td>
+                              <td><?= $row['HEIGHT'] ?></td>
+                              <td><?= $row['WEIGHT'] ?></td>
+                              <td><img src="../../images/icons8-user-32.png"></td>
+                              <td>
+                                <div class="d-flex align-items-center">
+                                  <a href="edit-pasien.php?id=<?= $row['ID_PATIENT'] ?>"><button type="button" class="btn btn-success btn-sm btn-icon-text mr-3">
+                                      Edit
+                                      <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></a>
+                                  <a href="hapus-pasien.php?id=<?= $row['ID_PATIENT'] ?>& id_user=<?= $row['ID_USER'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');" class="btn btn-icon-text"><button type="submit" class="btn btn-danger btn-sm btn-icon-text" name="hapus-pasien">
+                                      Delete
+                                      <i class="typcn typcn-delete-outline btn-icon-append"></i>
+                                    </button></a>
 
-                              </div>
-                            </td>
-                          </tr>
+                                </div>
+                              </td>
+                            </tr>
+                          <?php
+                            $i++;
+                          }
+                        } else {
+                          ?>
+                          <div class="text text-warning">
+                            Tidak ada data yang ditemukan
+                          </div>
                       <?php
-                          $i++;
                         }
                       }
 

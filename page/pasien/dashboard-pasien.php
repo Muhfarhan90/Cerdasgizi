@@ -58,6 +58,10 @@ if ($result_konsultasi->num_rows > 0) {
     td {
       padding: 0.5rem;
     }
+    iframe {
+      width: 80%;
+
+    }
   </style>
 </head>
 
@@ -186,6 +190,13 @@ if ($result_konsultasi->num_rows > 0) {
             ?>
 
           </div>
+          <div class="row">
+            <div class="col-xl-12 grid-margin stretch-card flex-column">
+              <h1>Lokasi Kelurahan </h1>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15831.308908095576!2d112.75703974397773!3d-7.260494933939178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7f983dfdee319%3A0x4816bfaaf809631a!2sPacar%20Kembang%2C%20Kec.%20Tambaksari%2C%20Surabaya%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1718274860590!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+          </div>
         </div>
 
         <!-- partial -->
@@ -264,7 +275,7 @@ if ($result_konsultasi->num_rows > 0) {
           label: 'Total Konsultasi',
           data: total_konsultasi,
           borderWidth: 1,
-          backgroundColor: ['#059212','#06D001','#9BEC00','#F3FF90']
+          backgroundColor: ['#059212', '#06D001', '#9BEC00', '#F3FF90']
         }]
       },
       options: {
@@ -281,11 +292,11 @@ if ($result_konsultasi->num_rows > 0) {
             }
           }
         },
-        plugins : {
+        plugins: {
           title: {
             display: true,
             text: 'Total Konsultasi Yang Dilakukan'
-          }, 
+          },
           legend: {
             display: false
           }
