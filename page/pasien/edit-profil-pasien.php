@@ -2,7 +2,24 @@
 include("../../logout.php");
 include("../../database/database.php");
 
+// ini id patient
 $id = $_GET['id'];
+
+// ini id user
+$userId = $_SESSION['id_user'];
+
+$query = "SELECT * FROM patient WHERE id_user = $userId";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$patientId = $row['ID_PATIENT'];
+
+if($patientId != $id ){
+  echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini');
+    document.location.href = 'profil-ahligizi.php';
+  </script>";
+}
+
 // query select untuk menampilkan isi field dari ID yang dipilih
 $query = "SELECT * FROM patient WHERE id_patient = '$id'";
 $result = mysqli_query($conn, $query);

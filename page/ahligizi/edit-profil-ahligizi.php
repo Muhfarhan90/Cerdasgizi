@@ -3,6 +3,21 @@ include("../../logout.php");
 include("../../database/database.php");
 
 $id = $_GET['id'];
+
+$userId = $_SESSION['id_user'];
+$query = "SELECT * FROM nutritionist WHERE id_user = $userId";
+$result = mysqli_query($conn, $query);
+$row = mysqli_fetch_assoc($result);
+$nutrisionistId = $row['ID_NUTRITIONIST'];
+
+if($nutrisionistId != $id ){
+  echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini');
+    document.location.href = 'profil-ahligizi.php';
+  </script>";
+}
+
+
 // query select untuk menampilkan isi field dari ID yang dipilih
 $query = "SELECT * FROM nutritionist WHERE id_nutritionist = '$id'";
 $result = mysqli_query($conn, $query);
@@ -22,7 +37,7 @@ if (isset($_POST['simpan'])) {
     echo "<script>
       alert('Data berhasil diubah...');
       document.location.href = 'profil-ahligizi.php';
-    </script>";
+    </s>";
   } else {
     echo "<script>
     alert('Data gagal diubah...');
