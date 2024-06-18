@@ -1,4 +1,7 @@
 /* Navbar */
+.navbar{
+  border: none !important;
+}
 
 .navbar {
   font-weight: 400;
@@ -6,8 +9,7 @@
   -webkit-transition:background $action-transition-duration $action-transition-timing-function;
   -moz-transition:background $action-transition-duration $action-transition-timing-function;
   -ms-transition:background $action-transition-duration $action-transition-timing-function;
-  border-bottom: 4px solid theme-color(primary);  
-
+    
   .navbar-brand-wrapper {
     background: theme-color(primary);
     transition: width $action-transition-duration $action-transition-timing-function, background $action-transition-duration $action-transition-timing-function;

@@ -26,6 +26,17 @@ if (isset($_POST["register"])) {
     $gender = $_POST["gender"];
     $tinggi = $_POST["tinggi"];
     $berat = $_POST["berat"];
+$check = isset($_POST["check"])?1:0;
+
+    if($check == 0){
+        echo "<script>
+        alert('Anda harus menyetujui syarat dan ketentuan yang berlaku...')
+        </script>";
+        echo "<script>
+        document.location.href = 'register.php';
+        </script>";
+        return false;
+    }
 
     try {
         // Query untuk insert data user
@@ -136,8 +147,8 @@ if (isset($_POST["register"])) {
                                     <div class="mb-4 mt-4">
                                         <div class="form-check">
                                             <label class="form-check-label text-muted">
-                                                <input type="checkbox" class="form-check-input">
-                                                I agree to all Terms & Conditions
+                                                <input type="checkbox" name="check" class="form-check-input">
+                                                Saya setuju dengan Syarat dan Ketentuan yang berlaku
                                             </label>
                                         </div>
                                     </div>
