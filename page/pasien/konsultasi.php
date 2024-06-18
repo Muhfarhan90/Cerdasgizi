@@ -83,6 +83,7 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
               <div class="card">
                 <div class="table-responsive pt-3">
                   <?php
+                  //proses membuat ajuan konsultasi 
                   // Mendapatkan nilai id_patient terakhir
                   $query_last_id_consultation = "SELECT MAX(id_consultation) AS last_id_consultation FROM consultation";
                   $result_last_id_consultation = mysqli_query($conn, $query_last_id_consultation);
@@ -102,7 +103,6 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
 
                     $query = "INSERT INTO consultation (id_consultation, id_patient, id_nutritionist, date_consultation, status_consultation) VALUES ($id_consultation, $id_pasien, $id_ahligizi, '$tanggal', '$status')";
                     $result = mysqli_query($conn, $query);
-
 
 
                     if (mysqli_affected_rows($conn) > 0) {

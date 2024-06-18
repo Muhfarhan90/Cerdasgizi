@@ -21,9 +21,7 @@ include('../../database/database.php');
     <!-- endinject -->
     <link rel="shortcut icon" href="../../images/favicon.png" />
 </head>
-
 <>
-
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <?php
@@ -74,6 +72,8 @@ include('../../database/database.php');
                             <div class="card">
                                 <div class="table-responsive pt-3">
                                     <?php
+                                    // mengambil data konsultasi
+
                                     // mengambil id user
                                     $id_user = $_SESSION['id_user'];
                                     // query untuk mengambil id ahligizi berdasarkan id user
@@ -160,6 +160,7 @@ include('../../database/database.php');
                                             if (isset($_GET['terima'])) {
                                                 $id_konsultasi = $_GET['id_konsultasi'];
                                                 $status = "dalam proses";
+                                                
                                                 $query = "UPDATE consultation SET STATUS_CONSULTATION = '$status' WHERE id_consultation = '$id_konsultasi'";
                                                 $result = mysqli_query($conn, $query);
                                                 echo "<script>
