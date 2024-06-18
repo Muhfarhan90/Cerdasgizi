@@ -45,7 +45,7 @@ if (isset($_POST["login"])) {
     }
   } else {
     echo "<script>
-    alert('Mohon maaf login ada gagal, Silahkan masukkan username dan password dengan benar');
+    alert('Mohon maaf Anda belum memiliki akun. Silahkan mendaftar akun terlebih dahulu');
       </script>";
   }
 }

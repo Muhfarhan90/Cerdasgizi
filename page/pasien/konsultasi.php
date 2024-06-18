@@ -107,8 +107,9 @@ $row_pasien = mysqli_fetch_assoc($result_pasien);
 
                     if (mysqli_affected_rows($conn) > 0) {
                       echo "<script>
-                      alert('data konsultasi berhasil ditambah');
-                    </script>";
+                            alert('data konsultasi berhasil ditambah');
+                            window.location.href = window.location.origin + window.location.pathname;
+                          </script>";
                     }
                   }
                   ?>
