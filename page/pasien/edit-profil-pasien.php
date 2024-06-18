@@ -3,6 +3,8 @@ include("../../logout.php");
 include("../../database/database.php");
 
 // ini id patient
+
+
 $id = $_GET['id'];
 
 // ini id user
