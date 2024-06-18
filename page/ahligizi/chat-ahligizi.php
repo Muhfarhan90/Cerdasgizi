@@ -23,10 +23,13 @@ if (isset($_POST['kirim'])) {
     $tanggal = date('Y-m-d H:i:s');
     $query_insert = "INSERT INTO chat (id_consultation,id_user, message, date_time_chat) VALUES ($id_konsultasi, $id_user, '$message', '$tanggal')";
     $result = mysqli_query($conn, $query_insert);
+    $redirect_url = $_SERVER['PHP_SELF'] . "?id_consultation=" . urlencode($id_konsultasi);
 
     // Memberikan umpan balik kepada pengguna
     if (mysqli_affected_rows($conn)) {
         echo "<script>alert('Pesan berhasil dikirim');</script>";
+        header("Location: " . $redirect_url);
+        exit(); 
     } else {
         echo "<script>alert('Pesan gagal dikirim');</script>";
     }
