@@ -26,7 +26,7 @@ if (isset($_POST["register"])) {
     $gender = $_POST["gender"];
     $tinggi = $_POST["tinggi"];
     $berat = $_POST["berat"];
-$check = isset($_POST["check"])?1:0;
+    $check = isset($_POST["check"])?1:0;
 
     if($check == 0){
         echo "<script>
