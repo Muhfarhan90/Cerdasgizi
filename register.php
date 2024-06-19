@@ -26,13 +26,24 @@ if (isset($_POST["register"])) {
     $gender = $_POST["gender"];
     $tinggi = $_POST["tinggi"];
     $berat = $_POST["berat"];
+    $check = isset($_POST["check"])?1:0;
+
+    if($check == 0){
+        echo "<script>
+        alert('Anda harus menyetujui syarat dan ketentuan yang berlaku...')
+        </script>";
+        echo "<script>
+        document.location.href = 'register.php';
+        </script>";
+        return false;
+    }
 
     try {
         // Query untuk insert data user
         $query = "INSERT INTO user (id_user, id_role, username_user, password_user) VALUES ($id_user, 3, '$username', '$password')";
 
         // Query untuk insert data pasien
-        $query2 = "INSERT INTO patient (id_patient, id_user, email_patient, fullname_patient, date_of_birth, gender, height, `weight`) VALUES ($id_patient, $id_user,'$email', '$nama', '$tanggal', '$gender', '$tinggi', '$berat')";
+        $query2 = "INSERT INTO patient (id_patient, id_user, email_patient, fullname_patient, date_of_birth, gender, height, weight) VALUES ($id_patient, $id_user,'$email', '$nama', '$tanggal', '$gender', '$tinggi', '$berat')";
 
         // Eksekusi query
         $result = mysqli_query($conn, $query);
@@ -136,8 +147,8 @@ if (isset($_POST["register"])) {
                                     <div class="mb-4 mt-4">
                                         <div class="form-check">
                                             <label class="form-check-label text-muted">
-                                                <input type="checkbox" class="form-check-input">
-                                                I agree to all Terms & Conditions
+                                                <input type="checkbox" name="check" class="form-check-input">
+                                                Saya setuju dengan Syarat dan Ketentuan yang berlaku
                                             </label>
                                         </div>
                                     </div>
